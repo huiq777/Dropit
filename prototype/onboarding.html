@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropit - 原型展示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#1a1a1a',
+                        'dark-surface': '#2d2d2d',
+                        'dark-border': '#404040',
+                        'accent-blue': '#6366f1'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-bg text-white min-h-screen">
+    <!-- 密码验证区域 -->
+    <div id="auth-section" class="min-h-screen flex items-center justify-center p-4 relative">
+        <!-- 语言切换按钮 -->
+        <button id="langToggle1" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors relative group z-10" title="切换语言">
+            <span class="text-sm font-medium" id="langText1">中</span>
+            <span class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap" id="langTooltip1">
+                Switch to English
+            </span>
+        </button>
+        
+        <div class="w-full max-w-sm">
+            <!-- Logo 区域 -->
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-accent-blue rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-paper-plane text-white text-2xl transform -rotate-45"></i>
+                </div>
+                <h1 class="text-2xl font-semibold text-white mb-2">Dropit</h1>
+                <p class="text-gray-400 text-sm">原型展示系统</p>
+            </div>
+
+            <!-- 登录表单 -->
+            <div class="bg-dark-surface rounded-2xl p-6 border border-dark-border">
+                <form id="auth-form" class="space-y-4">
+                    <div>
+                        <input
+                            type="password"
+                            id="password"
+                            class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue transition-colors"
+                            placeholder="输入密码查看原型..."
+                        >
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full bg-accent-blue hover:bg-indigo-600 text-white font-medium py-3 px-4 rounded-xl transition-colors"
+                    >
+                        进入展示
+                    </button>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <p class="text-xs text-gray-500">输入任意密码即可查看</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 原型展示区域 -->
+    <div id="prototype-section" class="hidden min-h-screen">
+        <!-- 顶部标题栏 -->
+        <div class="bg-dark-surface border-b border-dark-border p-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-accent-blue rounded-lg flex items-center justify-center">
+                    <i class="fas fa-paper-plane text-white text-sm transform -rotate-45"></i>
+                </div>
+                <h1 class="text-lg font-semibold text-white">Dropit 原型</h1>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button id="langToggle2" class="text-gray-400 hover:text-white transition-colors relative group" title="切换语言">
+                    <span class="text-sm font-medium" id="langText2">中</span>
+                    <span class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap" id="langTooltip2">
+                        Switch to English
+                    </span>
+                </button>
+                <button id="back-to-auth" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 原型列表 -->
+        <div class="p-4 max-w-sm mx-auto">
+            <div class="space-y-3">
+                <!-- 登录页面 -->
+                <div class="bg-dark-surface rounded-xl p-4 border border-dark-border hover:border-gray-600 transition-colors cursor-pointer" onclick="openPrototype('login.html')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-sign-in-alt text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-white">登录页面</h3>
+                            <p class="text-sm text-gray-400">用户身份验证界面</p>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500"></i>
+                    </div>
+                </div>
+
+                <!-- 原型总览 -->
+                <div class="bg-dark-surface rounded-xl p-4 border border-dark-border hover:border-gray-600 transition-colors cursor-pointer" onclick="openPrototype('index.html')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-th-large text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-white">原型总览</h3>
+                            <p class="text-sm text-gray-400">查看所有页面预览</p>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500"></i>
+                    </div>
+                </div>
+
+                <!-- 聊天界面 -->
+                <div class="bg-dark-surface rounded-xl p-4 border border-dark-border hover:border-gray-600 transition-colors cursor-pointer" onclick="openPrototype('main.html')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-comments text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-white">聊天界面</h3>
+                            <p class="text-sm text-gray-400">一体化文本和文件分享</p>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设计说明 -->
+            <div class="mt-8 bg-dark-surface rounded-xl p-4 border border-dark-border">
+                <h3 class="font-medium text-white mb-3">设计特点</h3>
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-mobile-alt text-accent-blue"></i>
+                        <span>移动端优先设计</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-palette text-accent-blue"></i>
+                        <span>深色主题界面</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-comments text-accent-blue"></i>
+                        <span>聊天式交互体验</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 认证逻辑
+        document.getElementById('auth-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            
+            if (password.length > 0) {
+                document.getElementById('auth-section').classList.add('hidden');
+                document.getElementById('prototype-section').classList.remove('hidden');
+            }
+        });
+
+        // 返回登录
+        document.getElementById('back-to-auth').addEventListener('click', function() {
+            document.getElementById('auth-section').classList.remove('hidden');
+            document.getElementById('prototype-section').classList.add('hidden');
+            document.getElementById('password').value = '';
+        });
+
+        // 打开原型页面
+        function openPrototype(page) {
+            window.open(page, '_blank', 'width=400,height=800');
+        }
+
+        // 语言切换功能
+        let currentLang = 'zh'; // 默认中文
+        
+        const translations = {
+            zh: {
+                title: 'Dropit',
+                subtitle: '原型展示系统',
+                passwordPlaceholder: '输入密码查看原型...',
+                enterBtn: '进入展示',
+                hint: '输入任意密码即可查看',
+                prototypeTitle: 'Dropit 原型',
+                pages: {
+                    login: {
+                        title: '登录页面',
+                        desc: '用户身份验证界面'
+                    },
+                    overview: {
+                        title: '原型总览',
+                        desc: '查看所有页面预览'
+                    },
+                    chat: {
+                        title: '聊天界面',
+                        desc: '一体化文本和文件分享'
+                    }
+                },
+                designTitle: '设计特点',
+                features: {
+                    mobile: '移动端优先设计',
+                    dark: '深色主题界面',
+                    chat: '聊天式交互体验'
+                }
+            },
+            en: {
+                title: 'Dropit',
+                subtitle: 'Prototype Demo System',
+                passwordPlaceholder: 'Enter password to view prototypes...',
+                enterBtn: 'Enter Demo',
+                hint: 'Enter any password to view',
+                prototypeTitle: 'Dropit Prototype',
+                pages: {
+                    login: {
+                        title: 'Login Page',
+                        desc: 'User authentication interface'
+                    },
+                    overview: {
+                        title: 'Prototype Overview',
+                        desc: 'View all page previews'
+                    },
+                    chat: {
+                        title: 'Chat Interface',
+                        desc: 'Integrated text and file sharing'
+                    }
+                },
+                designTitle: 'Design Features',
+                features: {
+                    mobile: 'Mobile-first design',
+                    dark: 'Dark theme interface',
+                    chat: 'Chat-like interaction experience'
+                }
+            }
+        };
+
+        // 绑定两个语言切换按钮
+        document.getElementById('langToggle1').addEventListener('click', function() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            updateLanguage(currentLang);
+        });
+
+        document.getElementById('langToggle2').addEventListener('click', function() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            updateLanguage(currentLang);
+        });
+
+        function updateLanguage(lang) {
+            const t = translations[lang];
+            
+            // 更新两个语言按钮文字和提示
+            const langText1 = document.getElementById('langText1');
+            const langTooltip1 = document.getElementById('langTooltip1');
+            const langText2 = document.getElementById('langText2');
+            const langTooltip2 = document.getElementById('langTooltip2');
+            
+            if (lang === 'zh') {
+                langText1.textContent = '中';
+                langTooltip1.textContent = 'Switch to English';
+                langText2.textContent = '中';
+                langTooltip2.textContent = 'Switch to English';
+            } else {
+                langText1.textContent = 'EN';
+                langTooltip1.textContent = '切换到中文';
+                langText2.textContent = 'EN';
+                langTooltip2.textContent = '切换到中文';
+            }
+            
+            // 更新auth-section
+            document.querySelector('#auth-section h1').textContent = t.title;
+            document.querySelector('#auth-section .text-gray-400').textContent = t.subtitle;
+            document.getElementById('password').placeholder = t.passwordPlaceholder;
+            document.querySelector('#auth-form button').textContent = t.enterBtn;
+            document.querySelector('.text-xs.text-gray-500').textContent = t.hint;
+            
+            // 更新prototype-section
+            document.querySelector('#prototype-section h1').textContent = t.prototypeTitle;
+            
+            // 更新页面列表
+            const pages = document.querySelectorAll('#prototype-section .bg-dark-surface');
+            if (pages.length >= 3) {
+                // 登录页面
+                pages[0].querySelector('h3').textContent = t.pages.login.title;
+                pages[0].querySelector('p').textContent = t.pages.login.desc;
+                // 原型总览
+                pages[1].querySelector('h3').textContent = t.pages.overview.title;
+                pages[1].querySelector('p').textContent = t.pages.overview.desc;
+                // 聊天界面
+                pages[2].querySelector('h3').textContent = t.pages.chat.title;
+                pages[2].querySelector('p').textContent = t.pages.chat.desc;
+            }
+            
+            // 更新设计特点
+            const designTitle = document.querySelector('.mt-8 h3');
+            if (designTitle) {
+                designTitle.textContent = t.designTitle;
+            }
+            
+            const featureSpans = document.querySelectorAll('.mt-8 span');
+            if (featureSpans.length >= 3) {
+                featureSpans[0].textContent = t.features.mobile;
+                featureSpans[1].textContent = t.features.dark;
+                featureSpans[2].textContent = t.features.chat;
+            }
+        }
+    </script>
+</body>
+</html>
