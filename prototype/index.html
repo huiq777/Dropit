@@ -1,566 +1,654 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dropit - 原型总览</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-bg': '#1a1a1a',
-                        'dark-surface': '#2d2d2d',
-                        'dark-border': '#404040',
-                        'accent-blue': '#6366f1'
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "dark-bg": "#1a1a1a",
+              "dark-surface": "#2d2d2d",
+              "dark-border": "#404040",
+              "accent-blue": "#6366f1",
+            },
+          },
+        },
+      };
     </script>
     <style>
-        .iframe-container {
-            aspect-ratio: 9/16;
-            max-height: 650px;
-        }
-        .iframe-container iframe {
-            border: 2px solid #404040;
-            border-radius: 16px;
-            background: #1a1a1a;
-        }
+      .iframe-container {
+        aspect-ratio: 9/16;
+        max-height: 650px;
+      }
+      .iframe-container iframe {
+        border: 2px solid #404040;
+        border-radius: 16px;
+        background: #1a1a1a;
+      }
     </style>
-</head>
-<body class="bg-dark-bg text-white min-h-screen">
+  </head>
+  <body class="bg-dark-bg text-white min-h-screen">
     <!-- 顶部标题栏 -->
-    <div class="bg-dark-surface border-b border-dark-border p-4 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-accent-blue rounded-xl flex items-center justify-center">
-                    <i class="fas fa-paper-plane text-white text-lg transform -rotate-45"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold text-white">Dropit 原型总览</h1>
-                    <p class="text-sm text-gray-400">移动端优先设计 • 深色主题风格</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-                <div class="flex items-center space-x-2 text-sm text-gray-400">
-                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span>实时预览</span>
-                </div>
-                <button id="langToggle" class="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-dark-border/50 transition-colors relative group" title="切换语言">
-                    <span class="text-sm font-medium" id="langText">中</span>
-                    <span class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap" id="langTooltip">
-                        Switch to English
-                    </span>
-                </button>
-                <button id="theme-toggle" class="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-dark-border/50 transition-colors">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
+    <div
+      class="bg-dark-surface border-b border-dark-border p-4 sticky top-0 z-50"
+    >
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-accent-blue rounded-xl flex items-center justify-center"
+          >
+            <i
+              class="fas fa-paper-plane text-white text-lg transform -rotate-45"
+            ></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold text-white">Dropit 原型总览</h1>
+            <p class="text-sm text-gray-400">移动端优先设计 • 深色主题风格</p>
+          </div>
         </div>
+
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-2 text-sm text-gray-400">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span>实时预览</span>
+          </div>
+          <button
+            id="langToggle"
+            class="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-dark-border/50 transition-colors relative group"
+            title="切换语言"
+          >
+            <span class="text-sm font-medium" id="langText">中</span>
+            <span
+              class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+              id="langTooltip"
+            >
+              Switch to English
+            </span>
+          </button>
+          <button
+            id="theme-toggle"
+            class="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-dark-border/50 transition-colors"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- 主要内容区域 -->
     <div class="max-w-6xl mx-auto p-6">
-        <!-- 项目简介 -->
-        <div class="bg-dark-surface rounded-2xl border border-dark-border p-6 mb-8">
-            <div class="text-center">
-                <h2 class="text-2xl font-semibold text-white mb-3">Dropit 原型展示</h2>
-                <p class="text-gray-400 text-lg mb-6">安全、快速的临时文件分享工具</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-                    <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
-                        <div class="w-12 h-12 bg-green-600/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-mobile-alt text-green-400 text-xl"></i>
-                        </div>
-                        <h3 class="font-medium text-white text-sm mb-2">移动端优先</h3>
-                        <p class="text-xs text-gray-400">统一的窄屏设计，适配各种设备</p>
-                    </div>
-                    
-                    <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
-                        <div class="w-12 h-12 bg-purple-600/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-comments text-purple-400 text-xl"></i>
-                        </div>
-                        <h3 class="font-medium text-white text-sm mb-2">聊天式交互</h3>
-                        <p class="text-xs text-gray-400">一体化的输入和文件上传体验</p>
-                    </div>
-                    
-                    <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
-                        <div class="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-palette text-blue-400 text-xl"></i>
-                        </div>
-                        <h3 class="font-medium text-white text-sm mb-2">深色主题</h3>
-                        <p class="text-xs text-gray-400">现代化的深色界面设计</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <!-- 项目简介 -->
+      <div
+        class="bg-dark-surface rounded-2xl border border-dark-border p-6 mb-8"
+      >
+        <div class="text-center">
+          <h2 class="text-2xl font-semibold text-white mb-3">
+            Dropit 原型展示
+          </h2>
+          <p class="text-gray-400 text-lg mb-6">安全、快速的临时文件分享工具</p>
 
-        <!-- 原型展示网格 -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            <!-- 登录页面 -->
-            <div class="bg-dark-surface rounded-2xl border border-dark-border p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-sign-in-alt text-white text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-white">登录页面</h3>
-                            <p class="text-sm text-gray-400">用户身份验证界面</p>
-                        </div>
-                    </div>
-                    <button 
-                        class="text-accent-blue hover:text-indigo-400 text-sm font-medium transition-colors"
-                        onclick="openFullscreen('login.html')"
-                    >
-                        <i class="fas fa-expand mr-1"></i>
-                        全屏
-                    </button>
-                </div>
-                
-                <div class="iframe-container bg-dark-bg rounded-xl overflow-hidden">
-                    <iframe 
-                        src="login.html" 
-                        class="w-full h-full border-0"
-                        title="登录页面原型"
-                        loading="lazy">
-                    </iframe>
-                </div>
-                
-                <div class="mt-4 text-xs text-gray-400">
-                    <div class="flex items-center justify-between">
-                        <span>特性: 表单验证、加载状态、错误提示</span>
-                        <span>状态: ✅ 完成</span>
-                    </div>
-                </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+            <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
+              <div
+                class="w-12 h-12 bg-green-600/20 rounded-lg flex items-center justify-center mx-auto mb-3"
+              >
+                <i class="fas fa-mobile-alt text-green-400 text-xl"></i>
+              </div>
+              <h3 class="font-medium text-white text-sm mb-2">移动端优先</h3>
+              <p class="text-xs text-gray-400">统一的窄屏设计，适配各种设备</p>
             </div>
 
-            <!-- 聊天界面 -->
-            <div class="bg-dark-surface rounded-2xl border border-dark-border p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-comments text-white text-sm"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-white">聊天界面</h3>
-                            <p class="text-sm text-gray-400">一体化内容输入和文件分享</p>
-                        </div>
-                    </div>
-                    <button 
-                        class="text-accent-blue hover:text-indigo-400 text-sm font-medium transition-colors"
-                        onclick="openFullscreen('main.html')"
-                    >
-                        <i class="fas fa-expand mr-1"></i>
-                        全屏
-                    </button>
-                </div>
-                
-                <div class="iframe-container bg-dark-bg rounded-xl overflow-hidden">
-                    <iframe 
-                        src="main.html" 
-                        class="w-full h-full border-0"
-                        title="聊天界面原型"
-                        loading="lazy">
-                    </iframe>
-                </div>
-                
-                <div class="mt-4 text-xs text-gray-400">
-                    <div class="flex items-center justify-between">
-                        <span>特性: 文本输入、文件上传、拖拽支持、粘贴图片</span>
-                        <span>状态: ✅ 完成</span>
-                    </div>
-                </div>
+            <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
+              <div
+                class="w-12 h-12 bg-purple-600/20 rounded-lg flex items-center justify-center mx-auto mb-3"
+              >
+                <i class="fas fa-comments text-purple-400 text-xl"></i>
+              </div>
+              <h3 class="font-medium text-white text-sm mb-2">聊天式交互</h3>
+              <p class="text-xs text-gray-400">一体化的输入和文件上传体验</p>
             </div>
+
+            <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
+              <div
+                class="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mx-auto mb-3"
+              >
+                <i class="fas fa-palette text-blue-400 text-xl"></i>
+              </div>
+              <h3 class="font-medium text-white text-sm mb-2">深色主题</h3>
+              <p class="text-xs text-gray-400">现代化的深色界面设计</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 原型展示网格 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- 登录页面 -->
+        <div class="bg-dark-surface rounded-2xl border border-dark-border p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-sign-in-alt text-white text-sm"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white">登录页面</h3>
+                <p class="text-sm text-gray-400">用户身份验证界面</p>
+              </div>
+            </div>
+            <button
+              class="text-accent-blue hover:text-indigo-400 text-sm font-medium transition-colors"
+              onclick="openFullscreen('login.html')"
+            >
+              <i class="fas fa-expand mr-1"></i>
+              全屏
+            </button>
+          </div>
+
+          <div class="iframe-container bg-dark-bg rounded-xl overflow-hidden">
+            <iframe
+              src="login.html"
+              class="w-full h-full border-0"
+              title="登录页面原型"
+              loading="lazy"
+            >
+            </iframe>
+          </div>
+
+          <div class="mt-4 text-xs text-gray-400">
+            <div class="flex items-center justify-between">
+              <span>特性: 表单验证、加载状态、错误提示</span>
+              <span>状态: ✅ 完成</span>
+            </div>
+          </div>
         </div>
 
-        <!-- 核心功能说明 -->
-        <div class="mt-8 bg-dark-surface rounded-2xl border border-dark-border p-6">
-            <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                <i class="fas fa-star text-accent-blue mr-2"></i>
-                核心功能
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h4 class="font-medium text-white text-sm mb-3">聊天式交互</h4>
-                    <div class="space-y-2 text-sm text-gray-400">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>在输入框中直接输入文本内容</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>点击Upload按钮选择文件上传</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>拖拽文件到页面任意位置上传</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>粘贴图片（Ctrl+V）直接上传</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="font-medium text-white text-sm mb-3">用户体验</h4>
-                    <div class="space-y-2 text-sm text-gray-400">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>实时上传进度显示</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>消息按时间分组展示</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>一键复制内容到剪贴板</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>快捷键支持（Cmd+Enter发送）</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- 聊天界面 -->
+        <div class="bg-dark-surface rounded-2xl border border-dark-border p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-comments text-white text-sm"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white">聊天界面</h3>
+                <p class="text-sm text-gray-400">一体化内容输入和文件分享</p>
+              </div>
             </div>
-        </div>
+            <button
+              class="text-accent-blue hover:text-indigo-400 text-sm font-medium transition-colors"
+              onclick="openFullscreen('main.html')"
+            >
+              <i class="fas fa-expand mr-1"></i>
+              全屏
+            </button>
+          </div>
 
-        <!-- 设计系统说明 -->
-        <div class="mt-6 bg-dark-surface rounded-2xl border border-dark-border p-6">
-            <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                <i class="fas fa-palette text-accent-blue mr-2"></i>
-                设计系统
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
-                    <h4 class="font-medium text-white text-sm mb-2">颜色规范</h4>
-                    <div class="space-y-2">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-4 h-4 bg-dark-bg rounded border border-dark-border"></div>
-                            <span class="text-xs text-gray-400">#1a1a1a 背景色</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <div class="w-4 h-4 bg-dark-surface rounded border border-dark-border"></div>
-                            <span class="text-xs text-gray-400">#2d2d2d 表面色</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <div class="w-4 h-4 bg-accent-blue rounded"></div>
-                            <span class="text-xs text-gray-400">#6366f1 强调色</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
-                    <h4 class="font-medium text-white text-sm mb-2">布局系统</h4>
-                    <div class="text-xs text-gray-400 space-y-1">
-                        <p>• 最大宽度 384px</p>
-                        <p>• 垂直堆叠布局</p>
-                        <p>• 固定顶部导航</p>
-                        <p>• 滚动内容区域</p>
-                    </div>
-                </div>
-                
-                <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
-                    <h4 class="font-medium text-white text-sm mb-2">交互原则</h4>
-                    <div class="text-xs text-gray-400 space-y-1">
-                        <p>• 一体化输入体验</p>
-                        <p>• 直接系统文件访问</p>
-                        <p>• 多种上传方式支持</p>
-                        <p>• 实时反馈和进度</p>
-                    </div>
-                </div>
-                
-                <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
-                    <h4 class="font-medium text-white text-sm mb-2">技术特性</h4>
-                    <div class="text-xs text-gray-400 space-y-1">
-                        <p>• HTML5 File API</p>
-                        <p>• 拖拽事件处理</p>
-                        <p>• 剪贴板集成</p>
-                        <p>• 响应式设计</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+          <div class="iframe-container bg-dark-bg rounded-xl overflow-hidden">
+            <iframe
+              src="main.html"
+              class="w-full h-full border-0"
+              title="聊天界面原型"
+              loading="lazy"
+            >
+            </iframe>
+          </div>
 
-        <!-- 技术实现说明 -->
-        <div class="mt-6 bg-dark-surface rounded-2xl border border-dark-border p-6">
-            <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                <i class="fas fa-code text-accent-blue mr-2"></i>
-                技术架构
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h4 class="font-medium text-white text-sm mb-3">前端技术栈</h4>
-                    <div class="space-y-2 text-sm text-gray-400">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>HTML5 语义化标签和File API</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>Tailwind CSS 原子化样式</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>原生 JavaScript 事件处理</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>Font Awesome 图标系统</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="font-medium text-white text-sm mb-3">设计理念</h4>
-                    <div class="space-y-2 text-sm text-gray-400">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>简化用户操作流程</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>消除页面跳转</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>统一的交互模式</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check text-green-400 text-xs"></i>
-                            <span>现代聊天应用体验</span>
-                        </div>
-                    </div>
-                </div>
+          <div class="mt-4 text-xs text-gray-400">
+            <div class="flex items-center justify-between">
+              <span>特性: 文本输入、文件上传、拖拽支持、粘贴图片</span>
+              <span>状态: ✅ 完成</span>
             </div>
+          </div>
         </div>
+      </div>
+
+      <!-- 核心功能说明 -->
+      <div
+        class="mt-8 bg-dark-surface rounded-2xl border border-dark-border p-6"
+      >
+        <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+          <i class="fas fa-star text-accent-blue mr-2"></i>
+          核心功能
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-medium text-white text-sm mb-3">聊天式交互</h4>
+            <div class="space-y-2 text-sm text-gray-400">
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>在输入框中直接输入文本内容</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>点击Upload按钮选择文件上传</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>拖拽文件到页面任意位置上传</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>粘贴图片（Ctrl+V）直接上传</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-medium text-white text-sm mb-3">用户体验</h4>
+            <div class="space-y-2 text-sm text-gray-400">
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>实时上传进度显示</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>消息按时间分组展示</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>一键复制内容到剪贴板</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>快捷键支持（Cmd+Enter发送）</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 设计系统说明 -->
+      <div
+        class="mt-6 bg-dark-surface rounded-2xl border border-dark-border p-6"
+      >
+        <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+          <i class="fas fa-palette text-accent-blue mr-2"></i>
+          设计系统
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
+            <h4 class="font-medium text-white text-sm mb-2">颜色规范</h4>
+            <div class="space-y-2">
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-4 h-4 bg-dark-bg rounded border border-dark-border"
+                ></div>
+                <span class="text-xs text-gray-400">#1a1a1a 背景色</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-4 h-4 bg-dark-surface rounded border border-dark-border"
+                ></div>
+                <span class="text-xs text-gray-400">#2d2d2d 表面色</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <div class="w-4 h-4 bg-accent-blue rounded"></div>
+                <span class="text-xs text-gray-400">#6366f1 强调色</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
+            <h4 class="font-medium text-white text-sm mb-2">布局系统</h4>
+            <div class="text-xs text-gray-400 space-y-1">
+              <p>• 最大宽度 384px</p>
+              <p>• 垂直堆叠布局</p>
+              <p>• 固定顶部导航</p>
+              <p>• 滚动内容区域</p>
+            </div>
+          </div>
+
+          <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
+            <h4 class="font-medium text-white text-sm mb-2">交互原则</h4>
+            <div class="text-xs text-gray-400 space-y-1">
+              <p>• 一体化输入体验</p>
+              <p>• 直接系统文件访问</p>
+              <p>• 多种上传方式支持</p>
+              <p>• 实时反馈和进度</p>
+            </div>
+          </div>
+
+          <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
+            <h4 class="font-medium text-white text-sm mb-2">技术特性</h4>
+            <div class="text-xs text-gray-400 space-y-1">
+              <p>• HTML5 File API</p>
+              <p>• 拖拽事件处理</p>
+              <p>• 剪贴板集成</p>
+              <p>• 响应式设计</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 技术实现说明 -->
+      <div
+        class="mt-6 bg-dark-surface rounded-2xl border border-dark-border p-6"
+      >
+        <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+          <i class="fas fa-code text-accent-blue mr-2"></i>
+          技术架构
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-medium text-white text-sm mb-3">前端技术栈</h4>
+            <div class="space-y-2 text-sm text-gray-400">
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>HTML5 语义化标签和File API</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>Tailwind CSS 原子化样式</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>原生 JavaScript 事件处理</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>Font Awesome 图标系统</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-medium text-white text-sm mb-3">设计理念</h4>
+            <div class="space-y-2 text-sm text-gray-400">
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>简化用户操作流程</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>消除页面跳转</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>统一的交互模式</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-check text-green-400 text-xs"></i>
+                <span>现代聊天应用体验</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 全屏预览模态框 -->
-    <div id="fullscreen-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center">
-        <div class="bg-dark-surface rounded-2xl border border-dark-border p-4 max-w-sm w-full mx-4">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-white font-medium" id="modal-title">原型预览</h3>
-                <button onclick="closeFullscreen()" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="aspect-[9/16] bg-dark-bg rounded-xl overflow-hidden">
-                <iframe id="modal-iframe" class="w-full h-full border-0" src=""></iframe>
-            </div>
+    <div
+      id="fullscreen-modal"
+      class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center"
+    >
+      <div
+        class="bg-dark-surface rounded-2xl border border-dark-border p-4 max-w-sm w-full mx-4"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-white font-medium" id="modal-title">原型预览</h3>
+          <button
+            onclick="closeFullscreen()"
+            class="text-gray-400 hover:text-white transition-colors"
+          >
+            <i class="fas fa-times"></i>
+          </button>
         </div>
+        <div class="aspect-[9/16] bg-dark-bg rounded-xl overflow-hidden">
+          <iframe
+            id="modal-iframe"
+            class="w-full h-full border-0"
+            src=""
+          ></iframe>
+        </div>
+      </div>
     </div>
 
     <script>
-        // 全屏预览功能
-        function openFullscreen(src) {
-            const modal = document.getElementById('fullscreen-modal');
-            const iframe = document.getElementById('modal-iframe');
-            const title = document.getElementById('modal-title');
-            
-            const pageNames = {
-                'login.html': '登录页面',
-                'main.html': '聊天界面'
-            };
-            
-            iframe.src = src;
-            title.textContent = pageNames[src] || '原型预览';
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
+      // 全屏预览功能
+      function openFullscreen(src) {
+        const modal = document.getElementById("fullscreen-modal");
+        const iframe = document.getElementById("modal-iframe");
+        const title = document.getElementById("modal-title");
 
-        function closeFullscreen() {
-            const modal = document.getElementById('fullscreen-modal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
-        }
-
-        // ESC键关闭全屏预览
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeFullscreen();
-            }
-        });
-
-        // 主题切换(装饰性)
-        document.getElementById('theme-toggle').addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            if (icon.classList.contains('fa-moon')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-            }
-        });
-
-        // 语言切换功能
-        let currentLang = 'zh'; // 默认中文
-        
-        const translations = {
-            zh: {
-                title: 'Dropit 原型总览',
-                subtitle: '移动端优先设计 • 深色主题风格',
-                livePreview: '实时预览',
-                projectTitle: 'Dropit 原型展示',
-                projectSubtitle: '安全、快速的临时文件分享工具',
-                features: {
-                    mobile: {
-                        title: '移动端优先',
-                        desc: '统一的窄屏设计，适配各种设备'
-                    },
-                    chat: {
-                        title: '聊天式交互',
-                        desc: '一体化的输入和文件上传体验'
-                    },
-                    dark: {
-                        title: '深色主题',
-                        desc: '现代化的深色界面设计'
-                    }
-                },
-                pages: {
-                    login: {
-                        title: '登录页面',
-                        desc: '用户身份验证界面'
-                    },
-                    chat: {
-                        title: '聊天界面',
-                        desc: '一体化内容输入和文件分享'
-                    }
-                },
-                coreFeatures: '核心功能',
-                designSystem: '设计系统',
-                techArch: '技术架构',
-                status: '✅ 完成'
-            },
-            en: {
-                title: 'Dropit Prototype Overview',
-                subtitle: 'Mobile-first Design • Dark Theme Style',
-                livePreview: 'Live Preview',
-                projectTitle: 'Dropit Prototype Demo',
-                projectSubtitle: 'Secure and fast temporary file sharing tool',
-                features: {
-                    mobile: {
-                        title: 'Mobile-first',
-                        desc: 'Unified narrow screen design, compatible with various devices'
-                    },
-                    chat: {
-                        title: 'Chat-like Interaction',
-                        desc: 'Integrated input and file upload experience'
-                    },
-                    dark: {
-                        title: 'Dark Theme',
-                        desc: 'Modern dark interface design'
-                    }
-                },
-                pages: {
-                    login: {
-                        title: 'Login Page',
-                        desc: 'User authentication interface'
-                    },
-                    chat: {
-                        title: 'Chat Interface',
-                        desc: 'Integrated content input and file sharing'
-                    }
-                },
-                coreFeatures: 'Core Features',
-                designSystem: 'Design System',
-                techArch: 'Technical Architecture',
-                status: '✅ Completed'
-            }
+        const pageNames = {
+          "login.html": "登录页面",
+          "main.html": "聊天界面",
         };
 
-        document.getElementById('langToggle').addEventListener('click', function() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            updateLanguage(currentLang);
+        iframe.src = src;
+        title.textContent = pageNames[src] || "原型预览";
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeFullscreen() {
+        const modal = document.getElementById("fullscreen-modal");
+        modal.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
+      // ESC键关闭全屏预览
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeFullscreen();
+        }
+      });
+
+      // 主题切换(装饰性)
+      document
+        .getElementById("theme-toggle")
+        .addEventListener("click", function () {
+          const icon = this.querySelector("i");
+          if (icon.classList.contains("fa-moon")) {
+            icon.classList.replace("fa-moon", "fa-sun");
+          } else {
+            icon.classList.replace("fa-sun", "fa-moon");
+          }
         });
 
-        function updateLanguage(lang) {
-            const t = translations[lang];
-            
-            // 更新语言按钮文字和提示
-            const langText = document.getElementById('langText');
-            const langTooltip = document.getElementById('langTooltip');
-            
-            if (lang === 'zh') {
-                langText.textContent = '中';
-                langTooltip.textContent = 'Switch to English';
-            } else {
-                langText.textContent = 'EN';
-                langTooltip.textContent = '切换到中文';
-            }
-            
-            // 更新顶部标题
-            document.querySelector('h1').textContent = t.title;
-            document.querySelector('.text-sm.text-gray-400').textContent = t.subtitle;
-            document.querySelector('.flex.items-center.space-x-2 span').textContent = t.livePreview;
-            
-            // 更新项目简介
-            document.querySelector('h2').textContent = t.projectTitle;
-            document.querySelector('.text-lg.mb-6').textContent = t.projectSubtitle;
-            
-            // 更新功能特点
-            const featureCards = document.querySelectorAll('.grid.grid-cols-1.md\\:grid-cols-3 .bg-dark-bg');
-            if (featureCards.length >= 3) {
-                featureCards[0].querySelector('h3').textContent = t.features.mobile.title;
-                featureCards[0].querySelector('p').textContent = t.features.mobile.desc;
-                featureCards[1].querySelector('h3').textContent = t.features.chat.title;
-                featureCards[1].querySelector('p').textContent = t.features.chat.desc;
-                featureCards[2].querySelector('h3').textContent = t.features.dark.title;
-                featureCards[2].querySelector('p').textContent = t.features.dark.desc;
-            }
-            
-            // 更新页面信息
-            const pageCards = document.querySelectorAll('.grid.grid-cols-1.lg\\:grid-cols-2 .bg-dark-surface');
-            if (pageCards.length >= 2) {
-                pageCards[0].querySelector('h3').textContent = t.pages.login.title;
-                pageCards[0].querySelector('p.text-sm').textContent = t.pages.login.desc;
-                pageCards[1].querySelector('h3').textContent = t.pages.chat.title;
-                pageCards[1].querySelector('p.text-sm').textContent = t.pages.chat.desc;
-            }
-            
-            // 更新状态
-            document.querySelectorAll('.text-xs.text-gray-400').forEach(el => {
-                if (el.textContent.includes('✅')) {
-                    el.innerHTML = el.innerHTML.replace(/状态: ✅ 完成/, `状态: ${t.status}`).replace(/状态: ✅ Completed/, `状态: ${t.status}`);
-                }
-            });
-            
-            // 更新section标题
-            const sectionTitles = document.querySelectorAll('h3.text-lg.font-semibold');
-            if (sectionTitles.length >= 3) {
-                sectionTitles[0].innerHTML = sectionTitles[0].innerHTML.replace(/核心功能|Core Features/, t.coreFeatures);
-                sectionTitles[1].innerHTML = sectionTitles[1].innerHTML.replace(/设计系统|Design System/, t.designSystem);
-                sectionTitles[2].innerHTML = sectionTitles[2].innerHTML.replace(/技术架构|Technical Architecture/, t.techArch);
-            }
-            
-            // 更新模态框标题映射
-            const pageNames = {
-                'login.html': t.pages.login.title,
-                'main.html': t.pages.chat.title
-            };
-            
-            // 重新定义openFullscreen函数以支持新的页面名称
-            window.openFullscreen = function(src) {
-                const modal = document.getElementById('fullscreen-modal');
-                const iframe = document.getElementById('modal-iframe');
-                const title = document.getElementById('modal-title');
-                
-                iframe.src = src;
-                title.textContent = pageNames[src] || (lang === 'zh' ? '原型预览' : 'Prototype Preview');
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            };
+      // 语言切换功能
+      let currentLang = "zh"; // 默认中文
+
+      const translations = {
+        zh: {
+          title: "Dropit 原型总览",
+          subtitle: "移动端优先设计 • 深色主题风格",
+          livePreview: "实时预览",
+          projectTitle: "Dropit 原型展示",
+          projectSubtitle: "安全、快速的临时文件分享工具",
+          features: {
+            mobile: {
+              title: "移动端优先",
+              desc: "统一的窄屏设计，适配各种设备",
+            },
+            chat: {
+              title: "聊天式交互",
+              desc: "一体化的输入和文件上传体验",
+            },
+            dark: {
+              title: "深色主题",
+              desc: "现代化的深色界面设计",
+            },
+          },
+          pages: {
+            login: {
+              title: "登录页面",
+              desc: "用户身份验证界面",
+            },
+            chat: {
+              title: "聊天界面",
+              desc: "一体化内容输入和文件分享",
+            },
+          },
+          coreFeatures: "核心功能",
+          designSystem: "设计系统",
+          techArch: "技术架构",
+          status: "✅ 完成",
+        },
+        en: {
+          title: "Dropit Prototype Overview",
+          subtitle: "Mobile-first Design • Dark Theme Style",
+          livePreview: "Live Preview",
+          projectTitle: "Dropit Prototype Demo",
+          projectSubtitle: "Secure and fast temporary file sharing tool",
+          features: {
+            mobile: {
+              title: "Mobile-first",
+              desc: "Unified narrow screen design, compatible with various devices",
+            },
+            chat: {
+              title: "Chat-like Interaction",
+              desc: "Integrated input and file upload experience",
+            },
+            dark: {
+              title: "Dark Theme",
+              desc: "Modern dark interface design",
+            },
+          },
+          pages: {
+            login: {
+              title: "Login Page",
+              desc: "User authentication interface",
+            },
+            chat: {
+              title: "Chat Interface",
+              desc: "Integrated content input and file sharing",
+            },
+          },
+          coreFeatures: "Core Features",
+          designSystem: "Design System",
+          techArch: "Technical Architecture",
+          status: "✅ Completed",
+        },
+      };
+
+      document
+        .getElementById("langToggle")
+        .addEventListener("click", function () {
+          currentLang = currentLang === "zh" ? "en" : "zh";
+          updateLanguage(currentLang);
+        });
+
+      function updateLanguage(lang) {
+        const t = translations[lang];
+
+        // 更新语言按钮文字和提示
+        const langText = document.getElementById("langText");
+        const langTooltip = document.getElementById("langTooltip");
+
+        if (lang === "zh") {
+          langText.textContent = "中";
+          langTooltip.textContent = "Switch to English";
+        } else {
+          langText.textContent = "EN";
+          langTooltip.textContent = "切换到中文";
         }
+
+        // 更新顶部标题
+        document.querySelector("h1").textContent = t.title;
+        document.querySelector(".text-sm.text-gray-400").textContent =
+          t.subtitle;
+        document.querySelector(
+          ".flex.items-center.space-x-2 span",
+        ).textContent = t.livePreview;
+
+        // 更新项目简介
+        document.querySelector("h2").textContent = t.projectTitle;
+        document.querySelector(".text-lg.mb-6").textContent = t.projectSubtitle;
+
+        // 更新功能特点
+        const featureCards = document.querySelectorAll(
+          ".grid.grid-cols-1.md\\:grid-cols-3 .bg-dark-bg",
+        );
+        if (featureCards.length >= 3) {
+          featureCards[0].querySelector("h3").textContent =
+            t.features.mobile.title;
+          featureCards[0].querySelector("p").textContent =
+            t.features.mobile.desc;
+          featureCards[1].querySelector("h3").textContent =
+            t.features.chat.title;
+          featureCards[1].querySelector("p").textContent = t.features.chat.desc;
+          featureCards[2].querySelector("h3").textContent =
+            t.features.dark.title;
+          featureCards[2].querySelector("p").textContent = t.features.dark.desc;
+        }
+
+        // 更新页面信息
+        const pageCards = document.querySelectorAll(
+          ".grid.grid-cols-1.lg\\:grid-cols-2 .bg-dark-surface",
+        );
+        if (pageCards.length >= 2) {
+          pageCards[0].querySelector("h3").textContent = t.pages.login.title;
+          pageCards[0].querySelector("p.text-sm").textContent =
+            t.pages.login.desc;
+          pageCards[1].querySelector("h3").textContent = t.pages.chat.title;
+          pageCards[1].querySelector("p.text-sm").textContent =
+            t.pages.chat.desc;
+        }
+
+        // 更新状态
+        document.querySelectorAll(".text-xs.text-gray-400").forEach((el) => {
+          if (el.textContent.includes("✅")) {
+            el.innerHTML = el.innerHTML
+              .replace(/状态: ✅ 完成/, `状态: ${t.status}`)
+              .replace(/状态: ✅ Completed/, `状态: ${t.status}`);
+          }
+        });
+
+        // 更新section标题
+        const sectionTitles = document.querySelectorAll(
+          "h3.text-lg.font-semibold",
+        );
+        if (sectionTitles.length >= 3) {
+          sectionTitles[0].innerHTML = sectionTitles[0].innerHTML.replace(
+            /核心功能|Core Features/,
+            t.coreFeatures,
+          );
+          sectionTitles[1].innerHTML = sectionTitles[1].innerHTML.replace(
+            /设计系统|Design System/,
+            t.designSystem,
+          );
+          sectionTitles[2].innerHTML = sectionTitles[2].innerHTML.replace(
+            /技术架构|Technical Architecture/,
+            t.techArch,
+          );
+        }
+
+        // 更新模态框标题映射
+        const pageNames = {
+          "login.html": t.pages.login.title,
+          "main.html": t.pages.chat.title,
+        };
+
+        // 重新定义openFullscreen函数以支持新的页面名称
+        window.openFullscreen = function (src) {
+          const modal = document.getElementById("fullscreen-modal");
+          const iframe = document.getElementById("modal-iframe");
+          const title = document.getElementById("modal-title");
+
+          iframe.src = src;
+          title.textContent =
+            pageNames[src] ||
+            (lang === "zh" ? "原型预览" : "Prototype Preview");
+          modal.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        };
+      }
     </script>
-</body>
+  </body>
 </html>

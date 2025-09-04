@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 /**
  * 合并和处理 CSS 类名
@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge'
  * @returns {string} 处理后的 CSS 类名
  */
 export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 /**
@@ -17,18 +17,18 @@ export function cn(...inputs: ClassValue[]): string {
  * @returns {string} 格式化的日期时间字符串
  */
 export function formatDateTime(
-  date: number | string | Date, 
-  locale = 'zh-CN'
+  date: number | string | Date,
+  locale = "zh-CN",
 ): string {
-  const dateObj = new Date(date)
+  const dateObj = new Date(date);
   return dateObj.toLocaleString(locale, {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  })
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 }
 
 /**
@@ -39,33 +39,35 @@ export function formatDateTime(
  */
 export function formatRelativeTime(
   date: number | string | Date,
-  locale = 'zh-CN'
+  locale = "zh-CN",
 ): string {
-  const now = new Date()
-  const targetDate = new Date(date)
-  const diffInSeconds = Math.floor((now.getTime() - targetDate.getTime()) / 1000)
+  const now = new Date();
+  const targetDate = new Date(date);
+  const diffInSeconds = Math.floor(
+    (now.getTime() - targetDate.getTime()) / 1000,
+  );
 
   if (diffInSeconds < 60) {
-    return '刚刚'
+    return "刚刚";
   }
 
-  const diffInMinutes = Math.floor(diffInSeconds / 60)
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
   if (diffInMinutes < 60) {
-    return `${diffInMinutes}分钟前`
+    return `${diffInMinutes}分钟前`;
   }
 
-  const diffInHours = Math.floor(diffInMinutes / 60)
+  const diffInHours = Math.floor(diffInMinutes / 60);
   if (diffInHours < 24) {
-    return `${diffInHours}小时前`
+    return `${diffInHours}小时前`;
   }
 
-  const diffInDays = Math.floor(diffInHours / 24)
+  const diffInDays = Math.floor(diffInHours / 24);
   if (diffInDays < 7) {
-    return `${diffInDays}天前`
+    return `${diffInDays}天前`;
   }
 
   // 超过7天显示具体日期
-  return formatDateTime(date, locale)
+  return formatDateTime(date, locale);
 }
 
 /**
@@ -76,21 +78,21 @@ export function formatRelativeTime(
  */
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
-  wait: number
+  wait: number,
 ): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout | null = null
+  let timeout: NodeJS.Timeout | null = null;
 
   return function executedFunction(...args: Parameters<T>) {
     const later = () => {
-      timeout = null
-      func(...args)
-    }
+      timeout = null;
+      func(...args);
+    };
 
     if (timeout) {
-      clearTimeout(timeout)
+      clearTimeout(timeout);
     }
-    timeout = setTimeout(later, wait)
-  }
+    timeout = setTimeout(later, wait);
+  };
 }
 
 /**
@@ -101,17 +103,17 @@ export function debounce<T extends (...args: any[]) => any>(
  */
 export function throttle<T extends (...args: any[]) => any>(
   func: T,
-  limit: number
+  limit: number,
 ): (...args: Parameters<T>) => void {
-  let inThrottle: boolean = false
+  let inThrottle: boolean = false;
 
   return function executedFunction(...args: Parameters<T>) {
     if (!inThrottle) {
-      func(...args)
-      inThrottle = true
-      setTimeout(() => (inThrottle = false), limit)
+      func(...args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
     }
-  }
+  };
 }
 
 /**
@@ -120,29 +122,29 @@ export function throttle<T extends (...args: any[]) => any>(
  * @returns {T} 拷贝后的对象
  */
 export function deepClone<T>(obj: T): T {
-  if (obj === null || typeof obj !== 'object') {
-    return obj
+  if (obj === null || typeof obj !== "object") {
+    return obj;
   }
 
   if (obj instanceof Date) {
-    return new Date(obj.getTime()) as T
+    return new Date(obj.getTime()) as T;
   }
 
   if (obj instanceof Array) {
-    return obj.map(item => deepClone(item)) as T
+    return obj.map((item) => deepClone(item)) as T;
   }
 
-  if (typeof obj === 'object') {
-    const clonedObj = {} as T
+  if (typeof obj === "object") {
+    const clonedObj = {} as T;
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
-        clonedObj[key] = deepClone(obj[key])
+        clonedObj[key] = deepClone(obj[key]);
       }
     }
-    return clonedObj
+    return clonedObj;
   }
 
-  return obj
+  return obj;
 }
 
 /**
@@ -153,13 +155,13 @@ export function deepClone<T>(obj: T): T {
  */
 export function generateRandomString(
   length = 8,
-  charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
 ): string {
-  let result = ''
+  let result = "";
   for (let i = 0; i < length; i++) {
-    result += charset.charAt(Math.floor(Math.random() * charset.length))
+    result += charset.charAt(Math.floor(Math.random() * charset.length));
   }
-  return result
+  return result;
 }
 
 /**
@@ -169,10 +171,10 @@ export function generateRandomString(
  */
 export function isValidUrl(string: string): boolean {
   try {
-    new URL(string)
-    return true
+    new URL(string);
+    return true;
   } catch {
-    return false
+    return false;
   }
 }
 
@@ -184,14 +186,14 @@ export function isValidUrl(string: string): boolean {
  * @returns {string} 截断后的字符串
  */
 export function truncateString(
-  str: string, 
-  maxLength: number, 
-  suffix = '...'
+  str: string,
+  maxLength: number,
+  suffix = "...",
 ): string {
   if (str.length <= maxLength) {
-    return str
+    return str;
   }
-  return str.substring(0, maxLength - suffix.length) + suffix
+  return str.substring(0, maxLength - suffix.length) + suffix;
 }
 
 /**
@@ -202,9 +204,9 @@ export function truncateString(
 export function slugify(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '') // 移除特殊字符
-    .replace(/[\s_-]+/g, '-') // 替换空格和下划线为破折号
-    .replace(/^-+|-+$/g, '') // 移除开头和结尾的破折号
+    .replace(/[^\w\s-]/g, "") // 移除特殊字符
+    .replace(/[\s_-]+/g, "-") // 替换空格和下划线为破折号
+    .replace(/^-+|-+$/g, ""); // 移除开头和结尾的破折号
 }
 
 /**
@@ -213,7 +215,7 @@ export function slugify(text: string): string {
  * @returns {boolean} 是否为空对象
  */
 export function isEmpty(obj: object): boolean {
-  return Object.keys(obj).length === 0
+  return Object.keys(obj).length === 0;
 }
 
 /**
@@ -224,9 +226,9 @@ export function isEmpty(obj: object): boolean {
  */
 export function safeJsonParse<T>(str: string, fallback: T): T {
   try {
-    return JSON.parse(str)
+    return JSON.parse(str);
   } catch {
-    return fallback
+    return fallback;
   }
 }
 
@@ -236,7 +238,7 @@ export function safeJsonParse<T>(str: string, fallback: T): T {
  * @returns {Promise<void>} Promise 对象
  */
 export function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms))
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -245,8 +247,8 @@ export function delay(ms: number): Promise<void> {
  * @param {string} defaultValue - 默认值
  * @returns {string} 环境变量值或默认值
  */
-export function getEnvVar(key: string, defaultValue = ''): string {
-  return process.env[key] || defaultValue
+export function getEnvVar(key: string, defaultValue = ""): string {
+  return process.env[key] || defaultValue;
 }
 
 /**
@@ -254,7 +256,7 @@ export function getEnvVar(key: string, defaultValue = ''): string {
  * @returns {boolean} 是否为开发环境
  */
 export function isDevelopment(): boolean {
-  return process.env.NODE_ENV === 'development'
+  return process.env.NODE_ENV === "development";
 }
 
 /**
@@ -262,5 +264,5 @@ export function isDevelopment(): boolean {
  * @returns {boolean} 是否为生产环境
  */
 export function isProduction(): boolean {
-  return process.env.NODE_ENV === 'production'
+  return process.env.NODE_ENV === "production";
 }

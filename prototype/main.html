@@ -1,348 +1,449 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dropit - 主页</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-bg': '#1a1a1a',
-                        'dark-surface': '#2d2d2d',
-                        'dark-border': '#404040',
-                        'accent-blue': '#6366f1'
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "dark-bg": "#1a1a1a",
+              "dark-surface": "#2d2d2d",
+              "dark-border": "#404040",
+              "accent-blue": "#6366f1",
+            },
+          },
+        },
+      };
     </script>
-</head>
-<body class="bg-dark-bg text-white min-h-screen">
+  </head>
+  <body class="bg-dark-bg text-white min-h-screen">
     <div class="min-h-screen flex flex-col max-w-sm mx-auto">
-        <!-- 顶部标题栏 -->
-        <div class="bg-dark-surface border-b border-dark-border p-4 flex items-center justify-between sticky top-0 z-10">
+      <!-- 顶部标题栏 -->
+      <div
+        class="bg-dark-surface border-b border-dark-border p-4 flex items-center justify-between sticky top-0 z-10"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-8 h-8 bg-accent-blue rounded-lg flex items-center justify-center"
+          >
+            <i
+              class="fas fa-paper-plane text-white text-sm transform -rotate-45"
+            ></i>
+          </div>
+          <h1 class="text-lg font-semibold text-white">Dropit</h1>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button
+            id="langToggle"
+            class="text-gray-400 hover:text-white transition-colors relative group"
+            title="切换语言"
+          >
+            <span class="text-sm font-medium" id="langText">中</span>
+            <span
+              class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+              id="langTooltip"
+            >
+              Switch to English
+            </span>
+          </button>
+          <button class="text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 内容区域 -->
+      <div class="flex-1 flex flex-col">
+        <!-- 消息历史 -->
+        <div class="flex-1 p-4 space-y-4 overflow-y-auto" id="chatArea">
+          <!-- 今天分组 -->
+          <div class="text-xs text-gray-400 text-center">
+            2024/04/13 00:30:00
+          </div>
+
+          <!-- 文本消息 -->
+          <div
+            class="bg-dark-surface rounded-2xl p-4 border border-dark-border"
+          >
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-6 h-6 bg-blue-600/20 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-font text-blue-400 text-xs"></i>
+                </div>
+                <span class="text-sm text-gray-400">文本内容</span>
+              </div>
+              <button
+                class="text-gray-500 hover:text-white transition-colors copy-btn"
+              >
+                <i class="far fa-copy text-sm"></i>
+              </button>
+            </div>
+            <p class="text-white text-sm leading-relaxed">
+              你好，这是另一条文本消息
+            </p>
+          </div>
+
+          <!-- 时间分隔线 -->
+          <div class="text-xs text-gray-400 text-center">
+            2024/04/11 20:09:23
+          </div>
+
+          <!-- 图片消息组 -->
+          <div class="space-y-3">
+            <!-- demo-Saul.jpg -->
+            <div
+              class="bg-dark-surface rounded-2xl p-4 border border-dark-border"
+            >
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <img
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzM3NDE1MSIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjE2IiByPSI2IiBmaWxsPSIjNkI3MjgwIi8+CjxwYXRoIGQ9Ik0xMCAzMkMxMCAyNi40NzcyIDEzLjU4MTcgMjIgMjAgMjJDMjYuNDE4MyAyMiAzMCAyNi40NzcyIDMwIDMySDEwWiIgZmlsbD0iIzZCNzI4MCIvPgo8L3N2Zz4K"
+                    alt="User Avatar"
+                    class="w-8 h-8 rounded-lg"
+                  />
+                  <span class="text-white font-medium text-sm"
+                    >demo-Saul.jpg</span
+                  >
+                </div>
+                <div class="flex items-center space-x-2">
+                  <button
+                    class="text-gray-500 hover:text-white transition-colors copy-btn"
+                  >
+                    <i class="far fa-copy text-sm"></i>
+                  </button>
+                  <button
+                    class="text-gray-500 hover:text-white transition-colors"
+                  >
+                    <i class="fas fa-download text-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- demo-White.png -->
+            <div
+              class="bg-dark-surface rounded-2xl p-4 border border-dark-border"
+            >
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <img
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iI0Y5RkFGQiIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjE2IiByPSI2IiBmaWxsPSIjRDFENU5CIi8+CjxwYXRoIGQ9Ik0xMCAzMkMxMCAyNi40NzcyIDEzLjU4MTcgMjIgMjAgMjJDMjYuNDE4MyAyMiAzMCAyNi40NzcyIDMwIDMySDEwWiIgZmlsbD0iI0QxRDVEQiIvPgo8L3N2Zz4K"
+                    alt="User Avatar"
+                    class="w-8 h-8 rounded-lg"
+                  />
+                  <span class="text-white font-medium text-sm"
+                    >demo-White.png</span
+                  >
+                </div>
+                <div class="flex items-center space-x-2">
+                  <button
+                    class="text-gray-500 hover:text-white transition-colors copy-btn"
+                  >
+                    <i class="far fa-copy text-sm"></i>
+                  </button>
+                  <button
+                    class="text-gray-500 hover:text-white transition-colors"
+                  >
+                    <i class="fas fa-download text-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 时间分隔线 -->
+          <div class="text-xs text-gray-400 text-center">
+            2024/04/11 16:40:45
+          </div>
+
+          <!-- 文本消息 -->
+          <div
+            class="bg-dark-surface rounded-2xl p-4 border border-dark-border"
+          >
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-6 h-6 bg-blue-600/20 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-font text-blue-400 text-xs"></i>
+                </div>
+                <span class="text-sm text-gray-400">文本内容</span>
+              </div>
+              <button
+                class="text-gray-500 hover:text-white transition-colors copy-btn"
+              >
+                <i class="far fa-copy text-sm"></i>
+              </button>
+            </div>
+            <p class="text-white text-sm leading-relaxed">
+              你好，这是一条文本消息
+            </p>
+          </div>
+
+          <!-- 图片消息 -->
+          <div
+            class="bg-dark-surface rounded-2xl p-4 border border-dark-border"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-8 h-8 bg-orange-600/20 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-image text-orange-400 text-sm"></i>
+                </div>
+                <span class="text-white font-medium text-sm"
+                  >demo-image-1.jpg</span
+                >
+              </div>
+              <div class="flex items-center space-x-2">
+                <button
+                  class="text-gray-500 hover:text-white transition-colors copy-btn"
+                >
+                  <i class="far fa-copy text-sm"></i>
+                </button>
+                <button
+                  class="text-gray-500 hover:text-white transition-colors"
+                >
+                  <i class="fas fa-download text-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 底部留白，避免被输入框遮挡 -->
+          <div class="h-20"></div>
+        </div>
+
+        <!-- 上传进度显示区域 -->
+        <div id="uploadProgress" class="hidden px-4 pb-2">
+          <div
+            class="bg-dark-surface/50 rounded-2xl border border-dark-border p-3"
+          >
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-accent-blue rounded-lg flex items-center justify-center">
-                    <i class="fas fa-paper-plane text-white text-sm transform -rotate-45"></i>
+              <div
+                class="w-8 h-8 bg-accent-blue/20 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-upload text-accent-blue text-sm"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-1">
+                  <span
+                    class="text-white text-sm font-medium"
+                    id="uploadFileName"
+                    >正在上传...</span
+                  >
+                  <span class="text-xs text-gray-400" id="uploadPercent"
+                    >0%</span
+                  >
                 </div>
-                <h1 class="text-lg font-semibold text-white">Dropit</h1>
+                <div class="w-full bg-dark-border rounded-full h-2">
+                  <div
+                    class="bg-accent-blue h-2 rounded-full transition-all duration-300"
+                    style="width: 0%"
+                    id="uploadBar"
+                  ></div>
+                </div>
+              </div>
             </div>
-            <div class="flex items-center space-x-2">
-                <button id="langToggle" class="text-gray-400 hover:text-white transition-colors relative group" title="切换语言">
-                    <span class="text-sm font-medium" id="langText">中</span>
-                    <span class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap" id="langTooltip">
-                        Switch to English
-                    </span>
-                </button>
-                <button class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
+          </div>
         </div>
 
-        <!-- 内容区域 -->
-        <div class="flex-1 flex flex-col">
-            <!-- 消息历史 -->
-            <div class="flex-1 p-4 space-y-4 overflow-y-auto" id="chatArea">
-                <!-- 今天分组 -->
-                <div class="text-xs text-gray-400 text-center">2024/04/13 00:30:00</div>
-                
-                <!-- 文本消息 -->
-                <div class="bg-dark-surface rounded-2xl p-4 border border-dark-border">
-                    <div class="flex items-start justify-between mb-2">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-6 h-6 bg-blue-600/20 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-font text-blue-400 text-xs"></i>
-                            </div>
-                            <span class="text-sm text-gray-400">文本内容</span>
-                        </div>
-                        <button class="text-gray-500 hover:text-white transition-colors copy-btn">
-                            <i class="far fa-copy text-sm"></i>
-                        </button>
-                    </div>
-                    <p class="text-white text-sm leading-relaxed">你好，这是另一条文本消息</p>
-                </div>
-
-                <!-- 时间分隔线 -->
-                <div class="text-xs text-gray-400 text-center">2024/04/11 20:09:23</div>
-
-                <!-- 图片消息组 -->
-                <div class="space-y-3">
-                    <!-- demo-Saul.jpg -->
-                    <div class="bg-dark-surface rounded-2xl p-4 border border-dark-border">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center space-x-2">
-                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzM3NDE1MSIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjE2IiByPSI2IiBmaWxsPSIjNkI3MjgwIi8+CjxwYXRoIGQ9Ik0xMCAzMkMxMCAyNi40NzcyIDEzLjU4MTcgMjIgMjAgMjJDMjYuNDE4MyAyMiAzMCAyNi40NzcyIDMwIDMySDEwWiIgZmlsbD0iIzZCNzI4MCIvPgo8L3N2Zz4K" alt="User Avatar" class="w-8 h-8 rounded-lg">
-                                <span class="text-white font-medium text-sm">demo-Saul.jpg</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <button class="text-gray-500 hover:text-white transition-colors copy-btn">
-                                    <i class="far fa-copy text-sm"></i>
-                                </button>
-                                <button class="text-gray-500 hover:text-white transition-colors">
-                                    <i class="fas fa-download text-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- demo-White.png -->
-                    <div class="bg-dark-surface rounded-2xl p-4 border border-dark-border">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center space-x-2">
-                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iI0Y5RkFGQiIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjE2IiByPSI2IiBmaWxsPSIjRDFENU5CIi8+CjxwYXRoIGQ9Ik0xMCAzMkMxMCAyNi40NzcyIDEzLjU4MTcgMjIgMjAgMjJDMjYuNDE4MyAyMiAzMCAyNi40NzcyIDMwIDMySDEwWiIgZmlsbD0iI0QxRDVEQiIvPgo8L3N2Zz4K" alt="User Avatar" class="w-8 h-8 rounded-lg">
-                                <span class="text-white font-medium text-sm">demo-White.png</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <button class="text-gray-500 hover:text-white transition-colors copy-btn">
-                                    <i class="far fa-copy text-sm"></i>
-                                </button>
-                                <button class="text-gray-500 hover:text-white transition-colors">
-                                    <i class="fas fa-download text-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 时间分隔线 -->
-                <div class="text-xs text-gray-400 text-center">2024/04/11 16:40:45</div>
-
-                <!-- 文本消息 -->
-                <div class="bg-dark-surface rounded-2xl p-4 border border-dark-border">
-                    <div class="flex items-start justify-between mb-2">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-6 h-6 bg-blue-600/20 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-font text-blue-400 text-xs"></i>
-                            </div>
-                            <span class="text-sm text-gray-400">文本内容</span>
-                        </div>
-                        <button class="text-gray-500 hover:text-white transition-colors copy-btn">
-                            <i class="far fa-copy text-sm"></i>
-                        </button>
-                    </div>
-                    <p class="text-white text-sm leading-relaxed">你好，这是一条文本消息</p>
-                </div>
-
-                <!-- 图片消息 -->
-                <div class="bg-dark-surface rounded-2xl p-4 border border-dark-border">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-orange-600/20 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-image text-orange-400 text-sm"></i>
-                            </div>
-                            <span class="text-white font-medium text-sm">demo-image-1.jpg</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <button class="text-gray-500 hover:text-white transition-colors copy-btn">
-                                <i class="far fa-copy text-sm"></i>
-                            </button>
-                            <button class="text-gray-500 hover:text-white transition-colors">
-                                <i class="fas fa-download text-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 底部留白，避免被输入框遮挡 -->
-                <div class="h-20"></div>
+        <!-- 底部输入区域 -->
+        <div class="bg-dark-surface border-t border-dark-border p-4">
+          <div class="bg-dark-bg rounded-2xl border border-dark-border p-4">
+            <div class="mb-4">
+              <textarea
+                placeholder="输入文本或粘贴图片... 按 Cmd+Enter 发送"
+                class="w-full bg-transparent text-white placeholder-gray-500 resize-none focus:outline-none text-sm"
+                rows="3"
+                id="messageInput"
+              ></textarea>
             </div>
 
-            <!-- 上传进度显示区域 -->
-            <div id="uploadProgress" class="hidden px-4 pb-2">
-                <div class="bg-dark-surface/50 rounded-2xl border border-dark-border p-3">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 bg-accent-blue/20 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-upload text-accent-blue text-sm"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="text-white text-sm font-medium" id="uploadFileName">正在上传...</span>
-                                <span class="text-xs text-gray-400" id="uploadPercent">0%</span>
-                            </div>
-                            <div class="w-full bg-dark-border rounded-full h-2">
-                                <div class="bg-accent-blue h-2 rounded-full transition-all duration-300" style="width: 0%" id="uploadBar"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="flex items-center justify-between">
+              <button
+                class="flex items-center space-x-2 text-accent-blue hover:text-indigo-400 transition-colors"
+                id="uploadBtn"
+              >
+                <i class="fas fa-plus"></i>
+                <span class="text-sm font-medium">上传</span>
+              </button>
 
-            <!-- 底部输入区域 -->
-            <div class="bg-dark-surface border-t border-dark-border p-4">
-                <div class="bg-dark-bg rounded-2xl border border-dark-border p-4">
-                    <div class="mb-4">
-                        <textarea 
-                            placeholder="输入文本或粘贴图片... 按 Cmd+Enter 发送"
-                            class="w-full bg-transparent text-white placeholder-gray-500 resize-none focus:outline-none text-sm"
-                            rows="3"
-                            id="messageInput"
-                        ></textarea>
-                    </div>
-                    
-                    <div class="flex items-center justify-between">
-                        <button 
-                            class="flex items-center space-x-2 text-accent-blue hover:text-indigo-400 transition-colors"
-                            id="uploadBtn"
-                        >
-                            <i class="fas fa-plus"></i>
-                            <span class="text-sm font-medium">上传</span>
-                        </button>
-                        
-                        <button 
-                            class="bg-accent-blue hover:bg-indigo-600 text-white px-4 py-2 rounded-xl transition-colors flex items-center space-x-2"
-                            onclick="sendMessage()"
-                        >
-                            <span class="text-sm font-medium">发送</span>
-                            <i class="fas fa-paper-plane text-sm transform -rotate-45"></i>
-                        </button>
-                    </div>
-                </div>
+              <button
+                class="bg-accent-blue hover:bg-indigo-600 text-white px-4 py-2 rounded-xl transition-colors flex items-center space-x-2"
+                onclick="sendMessage()"
+              >
+                <span class="text-sm font-medium">发送</span>
+                <i class="fas fa-paper-plane text-sm transform -rotate-45"></i>
+              </button>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- 隐藏的文件输入 -->
-    <input type="file" id="fileInput" class="hidden" multiple accept="image/*,application/pdf,.doc,.docx,.txt,.zip">
+    <input
+      type="file"
+      id="fileInput"
+      class="hidden"
+      multiple
+      accept="image/*,application/pdf,.doc,.docx,.txt,.zip"
+    />
 
     <script>
-        // 文件上传功能
-        const uploadBtn = document.getElementById('uploadBtn');
-        const fileInput = document.getElementById('fileInput');
-        const uploadProgress = document.getElementById('uploadProgress');
-        const chatArea = document.getElementById('chatArea');
+      // 文件上传功能
+      const uploadBtn = document.getElementById("uploadBtn");
+      const fileInput = document.getElementById("fileInput");
+      const uploadProgress = document.getElementById("uploadProgress");
+      const chatArea = document.getElementById("chatArea");
 
-        // 点击Upload按钮触发文件选择
-        uploadBtn.addEventListener('click', function() {
-            fileInput.click();
-        });
+      // 点击Upload按钮触发文件选择
+      uploadBtn.addEventListener("click", function () {
+        fileInput.click();
+      });
 
-        // 文件选择后处理
-        fileInput.addEventListener('change', function(e) {
-            const files = e.target.files;
-            if (files.length > 0) {
-                Array.from(files).forEach(file => {
-                    uploadFile(file);
-                });
-            }
-        });
-
-        // 拖拽上传支持
-        document.addEventListener('dragover', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('drop', function(e) {
-            e.preventDefault();
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                Array.from(files).forEach(file => {
-                    uploadFile(file);
-                });
-            }
-        });
-
-        // 粘贴上传支持
-        document.getElementById('messageInput').addEventListener('paste', function(e) {
-            const items = e.clipboardData.items;
-            for (let item of items) {
-                if (item.type.indexOf('image') !== -1) {
-                    const file = item.getAsFile();
-                    if (file) {
-                        uploadFile(file);
-                    }
-                }
-            }
-        });
-
-        // 上传文件处理
-        function uploadFile(file) {
-            // 显示上传进度
-            showUploadProgress(file);
-            
-            // 模拟上传过程
-            simulateUpload(file);
+      // 文件选择后处理
+      fileInput.addEventListener("change", function (e) {
+        const files = e.target.files;
+        if (files.length > 0) {
+          Array.from(files).forEach((file) => {
+            uploadFile(file);
+          });
         }
+      });
 
+      // 拖拽上传支持
+      document.addEventListener("dragover", function (e) {
+        e.preventDefault();
+      });
+
+      document.addEventListener("drop", function (e) {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          Array.from(files).forEach((file) => {
+            uploadFile(file);
+          });
+        }
+      });
+
+      // 粘贴上传支持
+      document
+        .getElementById("messageInput")
+        .addEventListener("paste", function (e) {
+          const items = e.clipboardData.items;
+          for (let item of items) {
+            if (item.type.indexOf("image") !== -1) {
+              const file = item.getAsFile();
+              if (file) {
+                uploadFile(file);
+              }
+            }
+          }
+        });
+
+      // 上传文件处理
+      function uploadFile(file) {
         // 显示上传进度
-        function showUploadProgress(file) {
-            const fileName = document.getElementById('uploadFileName');
-            const percent = document.getElementById('uploadPercent');
-            const bar = document.getElementById('uploadBar');
-            
-            fileName.textContent = file.name;
-            percent.textContent = '0%';
-            bar.style.width = '0%';
-            uploadProgress.classList.remove('hidden');
-        }
+        showUploadProgress(file);
 
         // 模拟上传过程
-        function simulateUpload(file) {
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 15;
-                if (progress > 100) progress = 100;
-                
-                const percent = document.getElementById('uploadPercent');
-                const bar = document.getElementById('uploadBar');
-                
-                percent.textContent = Math.round(progress) + '%';
-                bar.style.width = progress + '%';
-                
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    
-                    // 隐藏进度条
-                    setTimeout(() => {
-                        uploadProgress.classList.add('hidden');
-                    }, 1000);
-                    
-                    // 添加文件消息到聊天区域
-                    addFileMessage(file);
-                }
-            }, 100);
+        simulateUpload(file);
+      }
+
+      // 显示上传进度
+      function showUploadProgress(file) {
+        const fileName = document.getElementById("uploadFileName");
+        const percent = document.getElementById("uploadPercent");
+        const bar = document.getElementById("uploadBar");
+
+        fileName.textContent = file.name;
+        percent.textContent = "0%";
+        bar.style.width = "0%";
+        uploadProgress.classList.remove("hidden");
+      }
+
+      // 模拟上传过程
+      function simulateUpload(file) {
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += Math.random() * 15;
+          if (progress > 100) progress = 100;
+
+          const percent = document.getElementById("uploadPercent");
+          const bar = document.getElementById("uploadBar");
+
+          percent.textContent = Math.round(progress) + "%";
+          bar.style.width = progress + "%";
+
+          if (progress >= 100) {
+            clearInterval(interval);
+
+            // 隐藏进度条
+            setTimeout(() => {
+              uploadProgress.classList.add("hidden");
+            }, 1000);
+
+            // 添加文件消息到聊天区域
+            addFileMessage(file);
+          }
+        }, 100);
+      }
+
+      // 添加文件消息到聊天区域
+      function addFileMessage(file) {
+        const timeElement = document.createElement("div");
+        timeElement.className = "text-xs text-gray-400 text-center";
+        timeElement.textContent = new Date()
+          .toLocaleString("zh-CN", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          })
+          .replace(/\//g, "/")
+          .replace(",", "");
+
+        const fileElement = document.createElement("div");
+        fileElement.className =
+          "bg-dark-surface rounded-2xl p-4 border border-dark-border";
+
+        // 根据文件类型选择图标
+        let iconClass = "fas fa-file";
+        let iconColor = "text-gray-400";
+        let bgColor = "bg-gray-600/20";
+
+        if (file.type.startsWith("image/")) {
+          iconClass = "fas fa-image";
+          iconColor = "text-purple-400";
+          bgColor = "bg-purple-600/20";
+        } else if (file.type === "application/pdf") {
+          iconClass = "fas fa-file-pdf";
+          iconColor = "text-red-400";
+          bgColor = "bg-red-600/20";
+        } else if (
+          file.type.includes("document") ||
+          file.type.includes("word")
+        ) {
+          iconClass = "fas fa-file-word";
+          iconColor = "text-blue-400";
+          bgColor = "bg-blue-600/20";
         }
 
-        // 添加文件消息到聊天区域
-        function addFileMessage(file) {
-            const timeElement = document.createElement('div');
-            timeElement.className = 'text-xs text-gray-400 text-center';
-            timeElement.textContent = new Date().toLocaleString('zh-CN', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            }).replace(/\//g, '/').replace(',', '');
-            
-            const fileElement = document.createElement('div');
-            fileElement.className = 'bg-dark-surface rounded-2xl p-4 border border-dark-border';
-            
-            // 根据文件类型选择图标
-            let iconClass = 'fas fa-file';
-            let iconColor = 'text-gray-400';
-            let bgColor = 'bg-gray-600/20';
-            
-            if (file.type.startsWith('image/')) {
-                iconClass = 'fas fa-image';
-                iconColor = 'text-purple-400';
-                bgColor = 'bg-purple-600/20';
-            } else if (file.type === 'application/pdf') {
-                iconClass = 'fas fa-file-pdf';
-                iconColor = 'text-red-400';
-                bgColor = 'bg-red-600/20';
-            } else if (file.type.includes('document') || file.type.includes('word')) {
-                iconClass = 'fas fa-file-word';
-                iconColor = 'text-blue-400';
-                bgColor = 'bg-blue-600/20';
-            }
-            
-            fileElement.innerHTML = `
+        fileElement.innerHTML = `
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-center space-x-2">
                         <div class="w-8 h-8 ${bgColor} rounded-lg flex items-center justify-center">
@@ -363,46 +464,50 @@
                     </div>
                 </div>
             `;
-            
-            // 添加到聊天区域
-            const spacer = chatArea.querySelector('.h-20');
-            chatArea.insertBefore(timeElement, spacer);
-            chatArea.insertBefore(fileElement, spacer);
-            
-            // 滚动到底部
-            spacer.scrollIntoView({ behavior: 'smooth' });
-        }
 
-        // 格式化文件大小
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 B';
-            const k = 1024;
-            const sizes = ['B', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-        }
+        // 添加到聊天区域
+        const spacer = chatArea.querySelector(".h-20");
+        chatArea.insertBefore(timeElement, spacer);
+        chatArea.insertBefore(fileElement, spacer);
 
-        // 发送消息功能
-        function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const message = input.value.trim();
-            
-            if (message) {
-                // 创建新的消息元素
-                const timeElement = document.createElement('div');
-                timeElement.className = 'text-xs text-gray-400 text-center';
-                timeElement.textContent = new Date().toLocaleString('zh-CN', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                }).replace(/\//g, '/').replace(',', '');
-                
-                const messageElement = document.createElement('div');
-                messageElement.className = 'bg-dark-surface rounded-2xl p-4 border border-dark-border';
-                messageElement.innerHTML = `
+        // 滚动到底部
+        spacer.scrollIntoView({ behavior: "smooth" });
+      }
+
+      // 格式化文件大小
+      function formatFileSize(bytes) {
+        if (bytes === 0) return "0 B";
+        const k = 1024;
+        const sizes = ["B", "KB", "MB", "GB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+      }
+
+      // 发送消息功能
+      function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const message = input.value.trim();
+
+        if (message) {
+          // 创建新的消息元素
+          const timeElement = document.createElement("div");
+          timeElement.className = "text-xs text-gray-400 text-center";
+          timeElement.textContent = new Date()
+            .toLocaleString("zh-CN", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            })
+            .replace(/\//g, "/")
+            .replace(",", "");
+
+          const messageElement = document.createElement("div");
+          messageElement.className =
+            "bg-dark-surface rounded-2xl p-4 border border-dark-border";
+          messageElement.innerHTML = `
                     <div class="flex items-start justify-between mb-2">
                         <div class="flex items-center space-x-2">
                             <div class="w-6 h-6 bg-blue-600/20 rounded-lg flex items-center justify-center">
@@ -416,104 +521,115 @@
                     </div>
                     <p class="text-white text-sm leading-relaxed">${message}</p>
                 `;
-                
-                // 添加到聊天区域
-                const spacer = chatArea.querySelector('.h-20');
-                chatArea.insertBefore(timeElement, spacer);
-                chatArea.insertBefore(messageElement, spacer);
-                
-                // 清空输入框
-                input.value = '';
-                
-                // 滚动到底部
-                spacer.scrollIntoView({ behavior: 'smooth' });
-            }
+
+          // 添加到聊天区域
+          const spacer = chatArea.querySelector(".h-20");
+          chatArea.insertBefore(timeElement, spacer);
+          chatArea.insertBefore(messageElement, spacer);
+
+          // 清空输入框
+          input.value = "";
+
+          // 滚动到底部
+          spacer.scrollIntoView({ behavior: "smooth" });
         }
+      }
 
-        // 快捷键支持
-        document.getElementById('messageInput').addEventListener('keydown', function(e) {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-                e.preventDefault();
-                sendMessage();
-            }
+      // 快捷键支持
+      document
+        .getElementById("messageInput")
+        .addEventListener("keydown", function (e) {
+          if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+            e.preventDefault();
+            sendMessage();
+          }
         });
 
-        // 复制功能
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.copy-btn')) {
-                const messageElement = e.target.closest('.bg-dark-surface');
-                const messageText = messageElement.querySelector('p')?.textContent || 
-                                   messageElement.querySelector('span.text-white')?.textContent;
-                
-                if (messageText) {
-                    navigator.clipboard.writeText(messageText).then(() => {
-                        // 简单的反馈
-                        const icon = e.target.closest('.copy-btn').querySelector('i');
-                        icon.classList.add('text-green-400');
-                        setTimeout(() => {
-                            icon.classList.remove('text-green-400');
-                        }, 1000);
-                    });
-                }
-            }
-        });
+      // 复制功能
+      document.addEventListener("click", function (e) {
+        if (e.target.closest(".copy-btn")) {
+          const messageElement = e.target.closest(".bg-dark-surface");
+          const messageText =
+            messageElement.querySelector("p")?.textContent ||
+            messageElement.querySelector("span.text-white")?.textContent;
 
-        // 语言切换功能
-        let currentLang = 'zh'; // 默认中文
-        
-        const translations = {
-            zh: {
-                uploadBtn: '上传',
-                sendBtn: '发送',
-                placeholder: '输入文本或粘贴图片... 按 Cmd+Enter 发送',
-                uploading: '正在上传...',
-                textContent: '文本内容',
-                justUploaded: '刚刚上传',
-                tooltip: '中/EN'
-            },
-            en: {
-                uploadBtn: 'Upload',
-                sendBtn: 'Send',
-                placeholder: 'Input text or paste images here... Press Cmd+Enter to send',
-                uploading: 'Uploading...',
-                textContent: 'Text Content',
-                justUploaded: 'Just uploaded',
-                tooltip: '中/EN'
-            }
-        };
-
-        document.getElementById('langToggle').addEventListener('click', function() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            updateLanguage(currentLang);
-        });
-
-        function updateLanguage(lang) {
-            const t = translations[lang];
-            
-            // 更新语言按钮文字和提示
-            const langText = document.getElementById('langText');
-            const langTooltip = document.getElementById('langTooltip');
-            
-            if (lang === 'zh') {
-                langText.textContent = '中';
-                langTooltip.textContent = 'Switch to English';
-            } else {
-                langText.textContent = 'EN';
-                langTooltip.textContent = '切换到中文';
-            }
-            
-            // 更新界面文本
-            document.querySelector('#uploadBtn span').textContent = t.uploadBtn;
-            document.querySelector('button[onclick="sendMessage()"] span').textContent = t.sendBtn;
-            document.getElementById('messageInput').placeholder = t.placeholder;
-            
-            // 更新所有"文本内容"标签
-            document.querySelectorAll('.text-gray-400').forEach(el => {
-                if (el.textContent === '文本内容' || el.textContent === 'Text Content') {
-                    el.textContent = t.textContent;
-                }
+          if (messageText) {
+            navigator.clipboard.writeText(messageText).then(() => {
+              // 简单的反馈
+              const icon = e.target.closest(".copy-btn").querySelector("i");
+              icon.classList.add("text-green-400");
+              setTimeout(() => {
+                icon.classList.remove("text-green-400");
+              }, 1000);
             });
+          }
         }
+      });
+
+      // 语言切换功能
+      let currentLang = "zh"; // 默认中文
+
+      const translations = {
+        zh: {
+          uploadBtn: "上传",
+          sendBtn: "发送",
+          placeholder: "输入文本或粘贴图片... 按 Cmd+Enter 发送",
+          uploading: "正在上传...",
+          textContent: "文本内容",
+          justUploaded: "刚刚上传",
+          tooltip: "中/EN",
+        },
+        en: {
+          uploadBtn: "Upload",
+          sendBtn: "Send",
+          placeholder:
+            "Input text or paste images here... Press Cmd+Enter to send",
+          uploading: "Uploading...",
+          textContent: "Text Content",
+          justUploaded: "Just uploaded",
+          tooltip: "中/EN",
+        },
+      };
+
+      document
+        .getElementById("langToggle")
+        .addEventListener("click", function () {
+          currentLang = currentLang === "zh" ? "en" : "zh";
+          updateLanguage(currentLang);
+        });
+
+      function updateLanguage(lang) {
+        const t = translations[lang];
+
+        // 更新语言按钮文字和提示
+        const langText = document.getElementById("langText");
+        const langTooltip = document.getElementById("langTooltip");
+
+        if (lang === "zh") {
+          langText.textContent = "中";
+          langTooltip.textContent = "Switch to English";
+        } else {
+          langText.textContent = "EN";
+          langTooltip.textContent = "切换到中文";
+        }
+
+        // 更新界面文本
+        document.querySelector("#uploadBtn span").textContent = t.uploadBtn;
+        document.querySelector(
+          'button[onclick="sendMessage()"] span',
+        ).textContent = t.sendBtn;
+        document.getElementById("messageInput").placeholder = t.placeholder;
+
+        // 更新所有"文本内容"标签
+        document.querySelectorAll(".text-gray-400").forEach((el) => {
+          if (
+            el.textContent === "文本内容" ||
+            el.textContent === "Text Content"
+          ) {
+            el.textContent = t.textContent;
+          }
+        });
+      }
     </script>
-</body>
+  </body>
 </html>

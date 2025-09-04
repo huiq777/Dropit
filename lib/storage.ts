@@ -1,14 +1,14 @@
-import { kv } from '@vercel/kv'
-import { put, list, del, PutBlobResult, ListBlobResult } from '@vercel/blob'
+import { kv } from "@vercel/kv";
+import { put, list, del, PutBlobResult, ListBlobResult } from "@vercel/blob";
 
 // KV 存储相关
 
 export interface ContentData {
-  text: string
-  timestamp: number
+  text: string;
+  timestamp: number;
 }
 
-const CONTENT_KEY = 'dropit:content'
+const CONTENT_KEY = "dropit:content";
 
 /**
  * 保存文本内容到 KV 存储
@@ -18,11 +18,11 @@ const CONTENT_KEY = 'dropit:content'
 export async function saveContent(text: string): Promise<ContentData> {
   const content: ContentData = {
     text,
-    timestamp: Date.now()
-  }
-  
-  await kv.set(CONTENT_KEY, content)
-  return content
+    timestamp: Date.now(),
+  };
+
+  await kv.set(CONTENT_KEY, content);
+  return content;
 }
 
 /**
@@ -30,16 +30,16 @@ export async function saveContent(text: string): Promise<ContentData> {
  * @returns {Promise<ContentData>} 内容数据
  */
 export async function getContent(): Promise<ContentData> {
-  const content = await kv.get<ContentData>(CONTENT_KEY)
-  
+  const content = await kv.get<ContentData>(CONTENT_KEY);
+
   if (!content) {
     return {
-      text: '',
-      timestamp: Date.now()
-    }
+      text: "",
+      timestamp: Date.now(),
+    };
   }
-  
-  return content
+
+  return content;
 }
 
 /**
@@ -47,38 +47,38 @@ export async function getContent(): Promise<ContentData> {
  * @returns {Promise<void>}
  */
 export async function deleteContent(): Promise<void> {
-  await kv.del(CONTENT_KEY)
+  await kv.del(CONTENT_KEY);
 }
 
 // Blob 存储相关
 
 export interface FileUploadOptions {
-  maxSize?: number // 最大文件大小，字节
-  allowedTypes?: string[] // 允许的文件类型
+  maxSize?: number; // 最大文件大小，字节
+  allowedTypes?: string[]; // 允许的文件类型
 }
 
 export interface UploadResult {
-  success: boolean
+  success: boolean;
   data?: {
-    url: string
-    size: number
-    type: string
-    filename: string
-    uploadedAt: number
-  }
-  error?: string
+    url: string;
+    size: number;
+    type: string;
+    filename: string;
+    uploadedAt: number;
+  };
+  error?: string;
 }
 
 const DEFAULT_ALLOWED_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/webp',
-  'text/plain',
-  'application/pdf'
-]
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+  "text/plain",
+  "application/pdf",
+];
 
-const DEFAULT_MAX_SIZE = 10 * 1024 * 1024 // 10MB
+const DEFAULT_MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
 /**
  * 验证文件是否符合要求
@@ -87,26 +87,24 @@ const DEFAULT_MAX_SIZE = 10 * 1024 * 1024 // 10MB
  * @returns {string | null} 错误信息或null
  */
 export function validateFile(
-  file: File, 
-  options: FileUploadOptions = {}
+  file: File,
+  options: FileUploadOptions = {},
 ): string | null {
-  const { 
-    maxSize = DEFAULT_MAX_SIZE, 
-    allowedTypes = DEFAULT_ALLOWED_TYPES 
-  } = options
+  const { maxSize = DEFAULT_MAX_SIZE, allowedTypes = DEFAULT_ALLOWED_TYPES } =
+    options;
 
   // 检查文件大小
   if (file.size > maxSize) {
-    const maxSizeMB = Math.round(maxSize / (1024 * 1024))
-    return `文件大小不能超过 ${maxSizeMB}MB`
+    const maxSizeMB = Math.round(maxSize / (1024 * 1024));
+    return `文件大小不能超过 ${maxSizeMB}MB`;
   }
 
   // 检查文件类型
   if (!allowedTypes.includes(file.type)) {
-    return '不支持的文件类型'
+    return "不支持的文件类型";
   }
 
-  return null
+  return null;
 }
 
 /**
@@ -117,27 +115,27 @@ export function validateFile(
  */
 export async function uploadFile(
   file: File,
-  options: FileUploadOptions = {}
+  options: FileUploadOptions = {},
 ): Promise<UploadResult> {
   try {
     // 验证文件
-    const validationError = validateFile(file, options)
+    const validationError = validateFile(file, options);
     if (validationError) {
       return {
         success: false,
-        error: validationError
-      }
+        error: validationError,
+      };
     }
 
     // 生成唯一文件名
-    const timestamp = Date.now()
-    const extension = file.name.split('.').pop()
-    const filename = `dropit/${timestamp}.${extension}`
+    const timestamp = Date.now();
+    const extension = file.name.split(".").pop();
+    const filename = `dropit/${timestamp}.${extension}`;
 
     // 上传到 Vercel Blob
     const blob: PutBlobResult = await put(filename, file, {
-      access: 'public',
-    })
+      access: "public",
+    });
 
     return {
       success: true,
@@ -146,15 +144,15 @@ export async function uploadFile(
         size: file.size,
         type: file.type,
         filename: file.name,
-        uploadedAt: timestamp
-      }
-    }
+        uploadedAt: timestamp,
+      },
+    };
   } catch (error) {
-    console.error('Upload error:', error)
+    console.error("Upload error:", error);
     return {
       success: false,
-      error: '上传失败'
-    }
+      error: "上传失败",
+    };
   }
 }
 
@@ -165,9 +163,9 @@ export async function uploadFile(
  */
 export async function getFileList(limit = 50): Promise<ListBlobResult> {
   return await list({
-    prefix: 'dropit/',
-    limit
-  })
+    prefix: "dropit/",
+    limit,
+  });
 }
 
 /**
@@ -177,11 +175,11 @@ export async function getFileList(limit = 50): Promise<ListBlobResult> {
  */
 export async function deleteFile(url: string): Promise<boolean> {
   try {
-    await del(url)
-    return true
+    await del(url);
+    return true;
   } catch (error) {
-    console.error('Delete file error:', error)
-    return false
+    console.error("Delete file error:", error);
+    return false;
   }
 }
 
@@ -191,13 +189,13 @@ export async function deleteFile(url: string): Promise<boolean> {
  * @returns {string} 格式化的文件大小
  */
 export function formatFileSize(bytes: number): string {
-  if (bytes === 0) return '0 Bytes'
-  
-  const k = 1024
-  const sizes = ['Bytes', 'KB', 'MB', 'GB']
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+  if (bytes === 0) return "0 Bytes";
+
+  const k = 1024;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 }
 
 /**
@@ -206,7 +204,7 @@ export function formatFileSize(bytes: number): string {
  * @returns {boolean} 是否为图片
  */
 export function isImageFile(mimeType: string): boolean {
-  return mimeType.startsWith('image/')
+  return mimeType.startsWith("image/");
 }
 
 /**
@@ -215,8 +213,8 @@ export function isImageFile(mimeType: string): boolean {
  * @returns {string} 文件图标 emoji
  */
 export function getFileIcon(mimeType: string): string {
-  if (mimeType.startsWith('image/')) return '🖼️'
-  if (mimeType === 'application/pdf') return '📄'
-  if (mimeType.startsWith('text/')) return '📝'
-  return '📁'
+  if (mimeType.startsWith("image/")) return "🖼️";
+  if (mimeType === "application/pdf") return "📄";
+  if (mimeType.startsWith("text/")) return "📝";
+  return "📁";
 }

@@ -1,12 +1,12 @@
-import jwt, { SignOptions } from 'jsonwebtoken'
-import { cookies } from 'next/headers'
+import jwt, { SignOptions } from "jsonwebtoken";
+import { cookies } from "next/headers";
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 export interface AuthPayload {
-  authenticated: boolean
-  iat?: number
-  exp?: number
+  authenticated: boolean;
+  iat?: number;
+  exp?: number;
 }
 
 /**
@@ -15,17 +15,17 @@ export interface AuthPayload {
  */
 export async function isAuthenticated(): Promise<boolean> {
   try {
-    const cookieStore = await cookies()
-    const token = cookieStore.get('auth-token')?.value
-    
+    const cookieStore = await cookies();
+    const token = cookieStore.get("auth-token")?.value;
+
     if (!token) {
-      return false
+      return false;
     }
 
-    jwt.verify(token, JWT_SECRET) as AuthPayload
-    return true
+    jwt.verify(token, JWT_SECRET) as AuthPayload;
+    return true;
   } catch {
-    return false
+    return false;
   }
 }
 
@@ -35,17 +35,17 @@ export async function isAuthenticated(): Promise<boolean> {
  */
 export async function getAuthToken(): Promise<AuthPayload | null> {
   try {
-    const cookieStore = await cookies()
-    const token = cookieStore.get('auth-token')?.value
-    
+    const cookieStore = await cookies();
+    const token = cookieStore.get("auth-token")?.value;
+
     if (!token) {
-      return null
+      return null;
     }
 
-    const payload = jwt.verify(token, JWT_SECRET) as AuthPayload
-    return payload
+    const payload = jwt.verify(token, JWT_SECRET) as AuthPayload;
+    return payload;
   } catch {
-    return null
+    return null;
   }
 }
 
@@ -55,19 +55,19 @@ export async function getAuthToken(): Promise<AuthPayload | null> {
  */
 export async function verifyClientAuth(): Promise<boolean> {
   try {
-    const response = await fetch('/api/auth', {
-      method: 'GET',
-      credentials: 'include'
-    })
-    
+    const response = await fetch("/api/auth", {
+      method: "GET",
+      credentials: "include",
+    });
+
     if (!response.ok) {
-      return false
+      return false;
     }
 
-    const data = await response.json()
-    return data.authenticated === true
+    const data = await response.json();
+    return data.authenticated === true;
   } catch {
-    return false
+    return false;
   }
 }
 
@@ -77,14 +77,14 @@ export async function verifyClientAuth(): Promise<boolean> {
  */
 export async function clientLogout(): Promise<boolean> {
   try {
-    const response = await fetch('/api/auth', {
-      method: 'DELETE',
-      credentials: 'include'
-    })
-    
-    return response.ok
+    const response = await fetch("/api/auth", {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    return response.ok;
   } catch {
-    return false
+    return false;
   }
 }
 
@@ -94,8 +94,8 @@ export async function clientLogout(): Promise<boolean> {
  * @param {string} expiresIn - 过期时间
  * @returns {string} JWT 令牌
  */
-export function generateToken(payload: object, expiresIn = '24h'): string {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn } as SignOptions)
+export function generateToken(payload: object, expiresIn = "24h"): string {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn } as SignOptions);
 }
 
 /**
@@ -105,8 +105,8 @@ export function generateToken(payload: object, expiresIn = '24h'): string {
  */
 export function verifyToken(token: string): AuthPayload | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as AuthPayload
+    return jwt.verify(token, JWT_SECRET) as AuthPayload;
   } catch {
-    return null
+    return null;
   }
 }

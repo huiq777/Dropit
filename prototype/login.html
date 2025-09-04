@@ -1,303 +1,353 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dropit - 登录</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-bg': '#1a1a1a',
-                        'dark-surface': '#2d2d2d',
-                        'dark-border': '#404040',
-                        'accent-blue': '#6366f1'
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "dark-bg": "#1a1a1a",
+              "dark-surface": "#2d2d2d",
+              "dark-border": "#404040",
+              "accent-blue": "#6366f1",
+            },
+          },
+        },
+      };
     </script>
-</head>
-<body class="bg-dark-bg text-white min-h-screen">
+  </head>
+  <body class="bg-dark-bg text-white min-h-screen">
     <div class="min-h-screen flex flex-col max-w-sm mx-auto">
-        
-        <!-- 状态栏占位 -->
-        <div class="h-12"></div>
-        
-        <!-- 顶部标题区域 -->
-        <div class="p-4 text-center">
-            <div class="w-16 h-16 bg-accent-blue rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-paper-plane text-white text-2xl transform -rotate-45"></i>
-            </div>
-            <h1 class="text-2xl font-semibold text-white mb-2">Dropit</h1>
-            <p class="text-gray-400 text-sm">安全、快速的临时文件分享</p>
+      <!-- 状态栏占位 -->
+      <div class="h-12"></div>
+
+      <!-- 顶部标题区域 -->
+      <div class="p-4 text-center">
+        <div
+          class="w-16 h-16 bg-accent-blue rounded-2xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i
+            class="fas fa-paper-plane text-white text-2xl transform -rotate-45"
+          ></i>
         </div>
+        <h1 class="text-2xl font-semibold text-white mb-2">Dropit</h1>
+        <p class="text-gray-400 text-sm">安全、快速的临时文件分享</p>
+      </div>
 
-        <!-- 主要内容区域 -->
-        <div class="flex-1 px-4">
-            <!-- 登录表单 -->
-            <div class="bg-dark-surface rounded-2xl p-6 border border-dark-border mb-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-medium text-white">登录账户</h2>
-                    <button id="langToggle" class="text-gray-400 hover:text-white transition-colors relative group" title="切换语言">
-                        <span class="text-sm font-medium" id="langText">中</span>
-                        <span class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10" id="langTooltip">
-                            Switch to English
-                        </span>
-                    </button>
-                </div>
-                
-                <form id="loginForm" class="space-y-4">
-                    <div>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue transition-colors"
-                            placeholder="请输入访问密码"
-                            required
-                        >
-                    </div>
+      <!-- 主要内容区域 -->
+      <div class="flex-1 px-4">
+        <!-- 登录表单 -->
+        <div
+          class="bg-dark-surface rounded-2xl p-6 border border-dark-border mb-6"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-medium text-white">登录账户</h2>
+            <button
+              id="langToggle"
+              class="text-gray-400 hover:text-white transition-colors relative group"
+              title="切换语言"
+            >
+              <span class="text-sm font-medium" id="langText">中</span>
+              <span
+                class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10"
+                id="langTooltip"
+              >
+                Switch to English
+              </span>
+            </button>
+          </div>
 
-                    <button
-                        type="submit"
-                        class="w-full bg-accent-blue hover:bg-indigo-600 text-white font-medium py-3 px-4 rounded-xl transition-colors flex items-center justify-center"
-                        id="submitBtn"
-                    >
-                        <i class="fas fa-sign-in-alt mr-2"></i>
-                        进入 Dropit
-                    </button>
-                </form>
-
-                <!-- 错误提示 -->
-                <div id="error-message" class="hidden mt-3 p-3 bg-red-900/30 border border-red-800 rounded-lg">
-                    <p class="text-red-400 text-sm flex items-center">
-                        <i class="fas fa-exclamation-circle mr-2"></i>
-                        密码错误，请重试
-                    </p>
-                </div>
+          <form id="loginForm" class="space-y-4">
+            <div>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue transition-colors"
+                placeholder="请输入访问密码"
+                required
+              />
             </div>
 
-            <!-- 功能特点 -->
-            <div class="space-y-3 mb-6">
-                <div class="bg-dark-surface/50 rounded-xl p-4 border border-dark-border/50">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-green-600/20 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-shield-alt text-green-400"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-medium text-white text-sm">安全加密</h3>
-                            <p class="text-xs text-gray-400">密码保护，确保内容安全</p>
-                        </div>
-                    </div>
-                </div>
+            <button
+              type="submit"
+              class="w-full bg-accent-blue hover:bg-indigo-600 text-white font-medium py-3 px-4 rounded-xl transition-colors flex items-center justify-center"
+              id="submitBtn"
+            >
+              <i class="fas fa-sign-in-alt mr-2"></i>
+              进入 Dropit
+            </button>
+          </form>
 
-                <div class="bg-dark-surface/50 rounded-xl p-4 border border-dark-border/50">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-purple-600/20 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-bolt text-purple-400"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-medium text-white text-sm">快速同步</h3>
-                            <p class="text-xs text-gray-400">支持文本和图片即时分享</p>
-                        </div>
-                    </div>
-                </div>
+          <!-- 错误提示 -->
+          <div
+            id="error-message"
+            class="hidden mt-3 p-3 bg-red-900/30 border border-red-800 rounded-lg"
+          >
+            <p class="text-red-400 text-sm flex items-center">
+              <i class="fas fa-exclamation-circle mr-2"></i>
+              密码错误，请重试
+            </p>
+          </div>
+        </div>
 
-                <div class="bg-dark-surface/50 rounded-xl p-4 border border-dark-border/50">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-clock text-blue-400"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-medium text-white text-sm">临时存储</h3>
-                            <p class="text-xs text-gray-400">自动清理，保护隐私</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- 功能特点 -->
+        <div class="space-y-3 mb-6">
+          <div
+            class="bg-dark-surface/50 rounded-xl p-4 border border-dark-border/50"
+          >
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-green-600/20 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-shield-alt text-green-400"></i>
+              </div>
+              <div>
+                <h3 class="font-medium text-white text-sm">安全加密</h3>
+                <p class="text-xs text-gray-400">密码保护，确保内容安全</p>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- 底部信息 -->
-        <div class="p-4 text-center">
-            <p class="text-xs text-gray-500">© 2024 Dropit. 安全可靠的分享体验</p>
+          <div
+            class="bg-dark-surface/50 rounded-xl p-4 border border-dark-border/50"
+          >
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-purple-600/20 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-bolt text-purple-400"></i>
+              </div>
+              <div>
+                <h3 class="font-medium text-white text-sm">快速同步</h3>
+                <p class="text-xs text-gray-400">支持文本和图片即时分享</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-dark-surface/50 rounded-xl p-4 border border-dark-border/50"
+          >
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-clock text-blue-400"></i>
+              </div>
+              <div>
+                <h3 class="font-medium text-white text-sm">临时存储</h3>
+                <p class="text-xs text-gray-400">自动清理，保护隐私</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- 底部信息 -->
+      <div class="p-4 text-center">
+        <p class="text-xs text-gray-500">© 2024 Dropit. 安全可靠的分享体验</p>
+      </div>
     </div>
 
     <script>
-        // 模拟登录逻辑
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const errorMsg = document.getElementById('error-message');
-            const password = document.getElementById('password').value;
+      // 模拟登录逻辑
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-            // 隐藏之前的错误
-            errorMsg.classList.add('hidden');
+          const submitBtn = document.getElementById("submitBtn");
+          const errorMsg = document.getElementById("error-message");
+          const password = document.getElementById("password").value;
 
-            // 添加加载状态
-            submitBtn.innerHTML = `
+          // 隐藏之前的错误
+          errorMsg.classList.add("hidden");
+
+          // 添加加载状态
+          submitBtn.innerHTML = `
                 <i class="fas fa-spinner fa-spin mr-2"></i>
                 验证中...
             `;
-            submitBtn.disabled = true;
+          submitBtn.disabled = true;
 
-            // 模拟验证延迟
-            setTimeout(() => {
-                if (password.length >= 1) {
-                    // 成功
-                    submitBtn.innerHTML = `
+          // 模拟验证延迟
+          setTimeout(() => {
+            if (password.length >= 1) {
+              // 成功
+              submitBtn.innerHTML = `
                         <i class="fas fa-check mr-2"></i>
                         验证成功
                     `;
-                    submitBtn.className = submitBtn.className.replace('bg-accent-blue hover:bg-indigo-600', 'bg-green-600');
-                    
-                    setTimeout(() => {
-                        alert('登录成功！这是原型演示。');
-                        // 重置状态
-                        submitBtn.innerHTML = `
+              submitBtn.className = submitBtn.className.replace(
+                "bg-accent-blue hover:bg-indigo-600",
+                "bg-green-600",
+              );
+
+              setTimeout(() => {
+                alert("登录成功！这是原型演示。");
+                // 重置状态
+                submitBtn.innerHTML = `
                             <i class="fas fa-sign-in-alt mr-2"></i>
                             进入 Dropit
                         `;
-                        submitBtn.className = submitBtn.className.replace('bg-green-600', 'bg-accent-blue hover:bg-indigo-600');
-                        submitBtn.disabled = false;
-                        document.getElementById('password').value = '';
-                    }, 1000);
-                } else {
-                    // 失败
-                    errorMsg.classList.remove('hidden');
-                    submitBtn.innerHTML = `
+                submitBtn.className = submitBtn.className.replace(
+                  "bg-green-600",
+                  "bg-accent-blue hover:bg-indigo-600",
+                );
+                submitBtn.disabled = false;
+                document.getElementById("password").value = "";
+              }, 1000);
+            } else {
+              // 失败
+              errorMsg.classList.remove("hidden");
+              submitBtn.innerHTML = `
                         <i class="fas fa-sign-in-alt mr-2"></i>
                         进入 Dropit
                     `;
-                    submitBtn.disabled = false;
-                }
-            }, 1500);
+              submitBtn.disabled = false;
+            }
+          }, 1500);
         });
 
-        // 清除错误消息
-        document.getElementById('password').addEventListener('input', function() {
-            document.getElementById('error-message').classList.add('hidden');
+      // 清除错误消息
+      document
+        .getElementById("password")
+        .addEventListener("input", function () {
+          document.getElementById("error-message").classList.add("hidden");
         });
 
-        // 语言切换功能
-        let currentLang = 'zh'; // 默认中文
-        
-        const translations = {
-            zh: {
-                title: 'Dropit',
-                subtitle: '安全、快速的临时文件分享',
-                loginTitle: '登录账户',
-                passwordPlaceholder: '请输入访问密码',
-                submitBtn: '进入 Dropit',
-                errorMsg: '密码错误，请重试',
-                verifying: '验证中...',
-                success: '验证成功',
-                features: {
-                    security: {
-                        title: '安全加密',
-                        desc: '密码保护，确保内容安全'
-                    },
-                    sync: {
-                        title: '快速同步',
-                        desc: '支持文本和图片即时分享'
-                    },
-                    temp: {
-                        title: '临时存储',
-                        desc: '自动清理，保护隐私'
-                    }
-                },
-                footer: '© 2024 Dropit. 安全可靠的分享体验'
+      // 语言切换功能
+      let currentLang = "zh"; // 默认中文
+
+      const translations = {
+        zh: {
+          title: "Dropit",
+          subtitle: "安全、快速的临时文件分享",
+          loginTitle: "登录账户",
+          passwordPlaceholder: "请输入访问密码",
+          submitBtn: "进入 Dropit",
+          errorMsg: "密码错误，请重试",
+          verifying: "验证中...",
+          success: "验证成功",
+          features: {
+            security: {
+              title: "安全加密",
+              desc: "密码保护，确保内容安全",
             },
-            en: {
-                title: 'Dropit',
-                subtitle: 'Secure and fast temporary file sharing',
-                loginTitle: 'Login Account',
-                passwordPlaceholder: 'Please enter access password',
-                submitBtn: 'Enter Dropit',
-                errorMsg: 'Incorrect password, please try again',
-                verifying: 'Verifying...',
-                success: 'Verification successful',
-                features: {
-                    security: {
-                        title: 'Secure Encryption',
-                        desc: 'Password protected, ensuring content security'
-                    },
-                    sync: {
-                        title: 'Fast Sync',
-                        desc: 'Support instant text and image sharing'
-                    },
-                    temp: {
-                        title: 'Temporary Storage',
-                        desc: 'Auto cleanup, privacy protection'
-                    }
-                },
-                footer: '© 2024 Dropit. Secure and reliable sharing experience'
-            }
-        };
+            sync: {
+              title: "快速同步",
+              desc: "支持文本和图片即时分享",
+            },
+            temp: {
+              title: "临时存储",
+              desc: "自动清理，保护隐私",
+            },
+          },
+          footer: "© 2024 Dropit. 安全可靠的分享体验",
+        },
+        en: {
+          title: "Dropit",
+          subtitle: "Secure and fast temporary file sharing",
+          loginTitle: "Login Account",
+          passwordPlaceholder: "Please enter access password",
+          submitBtn: "Enter Dropit",
+          errorMsg: "Incorrect password, please try again",
+          verifying: "Verifying...",
+          success: "Verification successful",
+          features: {
+            security: {
+              title: "Secure Encryption",
+              desc: "Password protected, ensuring content security",
+            },
+            sync: {
+              title: "Fast Sync",
+              desc: "Support instant text and image sharing",
+            },
+            temp: {
+              title: "Temporary Storage",
+              desc: "Auto cleanup, privacy protection",
+            },
+          },
+          footer: "© 2024 Dropit. Secure and reliable sharing experience",
+        },
+      };
 
-        document.getElementById('langToggle').addEventListener('click', function() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            updateLanguage(currentLang);
+      document
+        .getElementById("langToggle")
+        .addEventListener("click", function () {
+          currentLang = currentLang === "zh" ? "en" : "zh";
+          updateLanguage(currentLang);
         });
 
-        function updateLanguage(lang) {
-            const t = translations[lang];
-            
-            // 更新语言按钮文字和提示
-            const langText = document.getElementById('langText');
-            const langTooltip = document.getElementById('langTooltip');
-            
-            if (lang === 'zh') {
-                langText.textContent = '中';
-                langTooltip.textContent = 'Switch to English';
-            } else {
-                langText.textContent = 'EN';
-                langTooltip.textContent = '切换到中文';
-            }
-            
-            // 更新主要文本
-            document.querySelector('h1').textContent = t.title;
-            document.querySelector('.text-gray-400.text-sm').textContent = t.subtitle;
-            document.querySelector('h2').textContent = t.loginTitle;
-            document.getElementById('password').placeholder = t.passwordPlaceholder;
-            
-            // 更新按钮文本（如果处于初始状态）
-            const submitBtn = document.getElementById('submitBtn');
-            if (submitBtn.innerHTML.includes('进入 Dropit') || submitBtn.innerHTML.includes('Enter Dropit')) {
-                submitBtn.innerHTML = `<i class="fas fa-sign-in-alt mr-2"></i>${t.submitBtn}`;
-            }
-            
-            // 更新错误消息
-            const errorP = document.querySelector('.text-red-400');
-            if (errorP) {
-                errorP.innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i>${t.errorMsg}`;
-            }
-            
-            // 更新功能特点
-            const features = document.querySelectorAll('.bg-dark-surface\\/50');
-            if (features.length >= 3) {
-                // 安全加密
-                features[0].querySelector('h3').textContent = t.features.security.title;
-                features[0].querySelector('.text-xs').textContent = t.features.security.desc;
-                // 快速同步
-                features[1].querySelector('h3').textContent = t.features.sync.title;
-                features[1].querySelector('.text-xs').textContent = t.features.sync.desc;
-                // 临时存储
-                features[2].querySelector('h3').textContent = t.features.temp.title;
-                features[2].querySelector('.text-xs').textContent = t.features.temp.desc;
-            }
-            
-            // 更新底部文本
-            const footer = document.querySelector('.text-xs.text-gray-500');
-            if (footer) {
-                footer.textContent = t.footer;
-            }
+      function updateLanguage(lang) {
+        const t = translations[lang];
+
+        // 更新语言按钮文字和提示
+        const langText = document.getElementById("langText");
+        const langTooltip = document.getElementById("langTooltip");
+
+        if (lang === "zh") {
+          langText.textContent = "中";
+          langTooltip.textContent = "Switch to English";
+        } else {
+          langText.textContent = "EN";
+          langTooltip.textContent = "切换到中文";
         }
+
+        // 更新主要文本
+        document.querySelector("h1").textContent = t.title;
+        document.querySelector(".text-gray-400.text-sm").textContent =
+          t.subtitle;
+        document.querySelector("h2").textContent = t.loginTitle;
+        document.getElementById("password").placeholder = t.passwordPlaceholder;
+
+        // 更新按钮文本（如果处于初始状态）
+        const submitBtn = document.getElementById("submitBtn");
+        if (
+          submitBtn.innerHTML.includes("进入 Dropit") ||
+          submitBtn.innerHTML.includes("Enter Dropit")
+        ) {
+          submitBtn.innerHTML = `<i class="fas fa-sign-in-alt mr-2"></i>${t.submitBtn}`;
+        }
+
+        // 更新错误消息
+        const errorP = document.querySelector(".text-red-400");
+        if (errorP) {
+          errorP.innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i>${t.errorMsg}`;
+        }
+
+        // 更新功能特点
+        const features = document.querySelectorAll(".bg-dark-surface\\/50");
+        if (features.length >= 3) {
+          // 安全加密
+          features[0].querySelector("h3").textContent =
+            t.features.security.title;
+          features[0].querySelector(".text-xs").textContent =
+            t.features.security.desc;
+          // 快速同步
+          features[1].querySelector("h3").textContent = t.features.sync.title;
+          features[1].querySelector(".text-xs").textContent =
+            t.features.sync.desc;
+          // 临时存储
+          features[2].querySelector("h3").textContent = t.features.temp.title;
+          features[2].querySelector(".text-xs").textContent =
+            t.features.temp.desc;
+        }
+
+        // 更新底部文本
+        const footer = document.querySelector(".text-xs.text-gray-500");
+        if (footer) {
+          footer.textContent = t.footer;
+        }
+      }
     </script>
-</body>
+  </body>
 </html>
