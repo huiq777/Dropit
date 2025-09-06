@@ -24,3 +24,90 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom scrollbar styles - bar2.png inspired */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(42, 45, 62, 0.3);
+  border-radius: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, 
+    rgba(195, 189, 255, 0.9) 0%, 
+    rgba(209, 205, 252, 0.9) 50%, 
+    rgba(238, 236, 252, 0.9) 100%
+  );
+  border-radius: 6px;
+  border: none;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, 
+    rgba(192, 188, 255, 0.497) 0%, 
+    rgba(192, 188, 255, 0.497) 50%, 
+    rgba(192, 188, 255, 0.497) 100%
+  );
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Custom animations */
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.animate-in {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+.slide-in-from-bottom-2 {
+  animation-name: slide-in-from-bottom;
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+/* Shimmer loading effect */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.04),
+    transparent
+  );
+  background-size: 200px 100%;
+  animation: shimmer 2s infinite;
+}

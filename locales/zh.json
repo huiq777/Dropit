@@ -1,0 +1,107 @@
+{
+  "common": {
+    "language": "语言",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "confirm": "确认",
+    "cancel": "取消",
+    "close": "关闭",
+    "copy": "复制",
+    "copied": "已复制！",
+    "upload": "上传",
+    "send": "发送",
+    "clear": "清除",
+    "settings": "设置"
+  },
+  "auth": {
+    "title": "Dropit",
+    "subtitle": "安全、快速的临时文件分享",
+    "loginAccount": "登录账户",
+    "passwordPlaceholder": "请输入访问密码",
+    "enterDropit": "进入 Dropit",
+    "verifying": "验证中...",
+    "passwordRequired": "密码不能为空",
+    "incorrectPassword": "密码错误，请重新输入",
+    "loginFailed": "登录失败",
+    "loginSuccess": "登录成功"
+  },
+  "chat": {
+    "title": "Dropit",
+    "emptyStateMessage": "开始聊天或拖拽文件到这里",
+    "inputPlaceholder": "输入文本内容，按 Cmd+Enter 发送",
+    "inputPlaceholderWin": "输入文本内容，按 Ctrl+Enter 发送",
+    "sendButton": "发送",
+    "uploadButton": "上传",
+    "clearMessages": "清空消息",
+    "clearConfirm": "确定要清空所有消息吗？",
+    "messageTypes": {
+      "text": "文本内容",
+      "file": "文件",
+      "image": "图片"
+    },
+    "uploadProgress": "上传中...",
+    "uploadSuccess": "上传成功",
+    "uploadFailed": "上传失败",
+    "fileTooBig": "文件过大",
+    "unsupportedFileType": "不支持的文件类型",
+    "dragDropHint": "拖拽文件到这里上传",
+    "pasteImageHint": "粘贴图片上传"
+  },
+  "prototype": {
+    "title": "Dropit 原型总览",
+    "subtitle": "移动端优先设计 • 深色主题风格",
+    "livePreview": "实时预览",
+    "projectTitle": "Dropit 原型展示",
+    "projectSubtitle": "安全、快速的临时文件分享工具",
+    "fullscreen": "全屏",
+    "features": {
+      "mobile": {
+        "title": "移动端优先",
+        "desc": "统一的窄屏设计，适配各种设备"
+      },
+      "chat": {
+        "title": "聊天式交互",
+        "desc": "一体化的输入和文件上传体验"
+      },
+      "dark": {
+        "title": "深色主题",
+        "desc": "现代化的深色界面设计"
+      }
+    },
+    "pages": {
+      "login": {
+        "title": "登录页面",
+        "desc": "用户身份验证界面",
+        "features": "特性：表单验证、加载状态、错误提示"
+      },
+      "chat": {
+        "title": "聊天界面",
+        "desc": "一体化内容输入和文件分享",
+        "features": "特性：文本输入、文件上传、拖拽支持、粘贴图片"
+      }
+    },
+    "status": "✅ 完成",
+    "coreFeatures": "核心功能",
+    "designSystem": "设计系统",
+    "techArch": "技术架构",
+    "designFeatures": "设计特点"
+  },
+  "onboarding": {
+    "title": "Dropit",
+    "subtitle": "原型展示系统",
+    "passwordPlaceholder": "输入密码查看原型...",
+    "enterDemo": "进入展示",
+    "hint": "输入任意密码即可查看",
+    "prototypeTitle": "Dropit 原型"
+  },
+  "time": {
+    "justNow": "刚刚",
+    "minuteAgo": "1分钟前",
+    "minutesAgo": "{{count}}分钟前",
+    "hourAgo": "1小时前",
+    "hoursAgo": "{{count}}小时前",
+    "yesterday": "昨天",
+    "daysAgo": "{{count}}天前"
+  }
+}

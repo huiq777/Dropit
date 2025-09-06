@@ -3,11 +3,8 @@ const nextConfig = {
   // 输出模式配置，优化 Serverless 部署
   output: "standalone",
 
-  // 实验性功能
+  // 实验性功能配置
   experimental: {},
-
-  // Turbopack 配置
-  turbo: {},
 
   // 图片优化配置
   images: {

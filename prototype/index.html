@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dropit - 原型总览</title>
+    <title>Dropit - Prototype Overview</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -50,28 +50,25 @@
             ></i>
           </div>
           <div>
-            <h1 class="text-xl font-bold text-white">Dropit 原型总览</h1>
-            <p class="text-sm text-gray-400">移动端优先设计 • 深色主题风格</p>
+            <h1 class="text-xl font-bold text-white">
+              Dropit Prototype Overview
+            </h1>
+            <p class="text-sm text-gray-400">
+              Mobile-first Design • Dark Theme Style
+            </p>
           </div>
         </div>
 
         <div class="flex items-center space-x-4">
           <div class="flex items-center space-x-2 text-sm text-gray-400">
             <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span>实时预览</span>
+            <span>Live Preview</span>
           </div>
           <button
             id="langToggle"
-            class="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-dark-border/50 transition-colors relative group"
-            title="切换语言"
+            class="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-dark-border/50 transition-colors"
           >
-            <span class="text-sm font-medium" id="langText">中</span>
-            <span
-              class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-              id="langTooltip"
-            >
-              Switch to English
-            </span>
+            <span class="text-sm font-medium" id="langText">EN</span>
           </button>
           <button
             id="theme-toggle"
@@ -91,9 +88,11 @@
       >
         <div class="text-center">
           <h2 class="text-2xl font-semibold text-white mb-3">
-            Dropit 原型展示
+            Dropit Prototype Demo
           </h2>
-          <p class="text-gray-400 text-lg mb-6">安全、快速的临时文件分享工具</p>
+          <p class="text-gray-400 text-lg mb-6">
+            Secure and fast temporary file sharing tool
+          </p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
             <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
@@ -102,8 +101,10 @@
               >
                 <i class="fas fa-mobile-alt text-green-400 text-xl"></i>
               </div>
-              <h3 class="font-medium text-white text-sm mb-2">移动端优先</h3>
-              <p class="text-xs text-gray-400">统一的窄屏设计，适配各种设备</p>
+              <h3 class="font-medium text-white text-sm mb-2">Mobile-first</h3>
+              <p class="text-xs text-gray-400">
+                Unified narrow screen design, compatible with various devices
+              </p>
             </div>
 
             <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
@@ -112,8 +113,12 @@
               >
                 <i class="fas fa-comments text-purple-400 text-xl"></i>
               </div>
-              <h3 class="font-medium text-white text-sm mb-2">聊天式交互</h3>
-              <p class="text-xs text-gray-400">一体化的输入和文件上传体验</p>
+              <h3 class="font-medium text-white text-sm mb-2">
+                Chat-like Interaction
+              </h3>
+              <p class="text-xs text-gray-400">
+                Integrated input and file upload experience
+              </p>
             </div>
 
             <div class="bg-dark-bg rounded-xl p-4 border border-dark-border">
@@ -122,8 +127,8 @@
               >
                 <i class="fas fa-palette text-blue-400 text-xl"></i>
               </div>
-              <h3 class="font-medium text-white text-sm mb-2">深色主题</h3>
-              <p class="text-xs text-gray-400">现代化的深色界面设计</p>
+              <h3 class="font-medium text-white text-sm mb-2">Dark Theme</h3>
+              <p class="text-xs text-gray-400">Modern dark interface design</p>
             </div>
           </div>
         </div>
@@ -462,7 +467,7 @@
         });
 
       // 语言切换功能
-      let currentLang = "zh"; // 默认中文
+      let currentLang = "en"; // 默认英文
 
       const translations = {
         zh: {
@@ -547,16 +552,13 @@
       function updateLanguage(lang) {
         const t = translations[lang];
 
-        // 更新语言按钮文字和提示
+        // 更新语言按钮文字
         const langText = document.getElementById("langText");
-        const langTooltip = document.getElementById("langTooltip");
 
         if (lang === "zh") {
           langText.textContent = "中";
-          langTooltip.textContent = "Switch to English";
         } else {
           langText.textContent = "EN";
-          langTooltip.textContent = "切换到中文";
         }
 
         // 更新顶部标题
@@ -649,6 +651,11 @@
           document.body.style.overflow = "hidden";
         };
       }
+
+      // Initialize with English language on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateLanguage("en");
+      });
     </script>
   </body>
 </html>

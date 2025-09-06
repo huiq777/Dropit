@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "anchor-browser": {
+      "url": "http://localhost:8931/mcp"
+    }
+  }
+}

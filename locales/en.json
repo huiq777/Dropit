@@ -1,0 +1,107 @@
+{
+  "common": {
+    "language": "Language",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "upload": "Upload",
+    "send": "Send",
+    "clear": "Clear",
+    "settings": "Settings"
+  },
+  "auth": {
+    "title": "Dropit",
+    "subtitle": "Secure and fast temporary file sharing",
+    "loginAccount": "Login Account",
+    "passwordPlaceholder": "Please enter access password",
+    "enterDropit": "Enter Dropit",
+    "verifying": "Verifying...",
+    "passwordRequired": "Password cannot be empty",
+    "incorrectPassword": "Incorrect password, please try again",
+    "loginFailed": "Login failed",
+    "loginSuccess": "Login successful"
+  },
+  "chat": {
+    "title": "Dropit",
+    "emptyStateMessage": "Start chatting or drop files here",
+    "inputPlaceholder": "Input text content, press Cmd+Enter to send",
+    "inputPlaceholderWin": "Input text content, press Ctrl+Enter to send",
+    "sendButton": "Send",
+    "uploadButton": "Upload",
+    "clearMessages": "Clear messages",
+    "clearConfirm": "Are you sure you want to clear all messages?",
+    "messageTypes": {
+      "text": "Text Content",
+      "file": "File",
+      "image": "Image"
+    },
+    "uploadProgress": "Uploading...",
+    "uploadSuccess": "Upload successful",
+    "uploadFailed": "Upload failed",
+    "fileTooBig": "File is too large",
+    "unsupportedFileType": "Unsupported file type",
+    "dragDropHint": "Drop files here to upload",
+    "pasteImageHint": "Paste image to upload"
+  },
+  "prototype": {
+    "title": "Dropit Prototype Overview",
+    "subtitle": "Mobile-first Design • Dark Theme Style",
+    "livePreview": "Live Preview",
+    "projectTitle": "Dropit Prototype Demo",
+    "projectSubtitle": "Secure and fast temporary file sharing tool",
+    "fullscreen": "Fullscreen",
+    "features": {
+      "mobile": {
+        "title": "Mobile-first",
+        "desc": "Unified narrow screen design, compatible with various devices"
+      },
+      "chat": {
+        "title": "Chat-like Interaction",
+        "desc": "Integrated input and file upload experience"
+      },
+      "dark": {
+        "title": "Dark Theme",
+        "desc": "Modern dark interface design"
+      }
+    },
+    "pages": {
+      "login": {
+        "title": "Login Page",
+        "desc": "User authentication interface",
+        "features": "Features: Form validation, loading state, error message"
+      },
+      "chat": {
+        "title": "Chat Interface",
+        "desc": "Integrated content input and file sharing",
+        "features": "Features: Text input, file upload, drag support, paste image"
+      }
+    },
+    "status": "✅ Completed",
+    "coreFeatures": "Core Features",
+    "designSystem": "Design System",
+    "techArch": "Technical Architecture",
+    "designFeatures": "Design Features"
+  },
+  "onboarding": {
+    "title": "Dropit",
+    "subtitle": "Prototype Demo System",
+    "passwordPlaceholder": "Enter password to view prototypes...",
+    "enterDemo": "Enter Demo",
+    "hint": "Enter any password to view",
+    "prototypeTitle": "Dropit Prototype"
+  },
+  "time": {
+    "justNow": "Just now",
+    "minuteAgo": "1 minute ago",
+    "minutesAgo": "{{count}} minutes ago",
+    "hourAgo": "1 hour ago",
+    "hoursAgo": "{{count}} hours ago",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago"
+  }
+}

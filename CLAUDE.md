@@ -2,6 +2,22 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+Remember to testing your work everytime after writing code.
+
+**USE CONTEXT7** (remember for everytime to create code)
+
+## You are a playwright test generator.
+
+You are given a scenario and you need to generate a playwright test for it.
+DO NOT generate test code based on the scenario alone.
+DO run steps one by one using the tools provided by the Playwright MCP.
+Only after all steps are completed, emit a Playwright TypeScript test that uses @playwright/test based on message history
+Save generated test file in the tests directory
+Execute the test file and iterate until the test passes
+
+**After making a change, test it in the browser at http://localhost:3000
+using the Browser MCP. Assume the server is already running.**
+
 ## Commands
 
 ### Development

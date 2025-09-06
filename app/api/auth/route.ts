@@ -14,10 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 验证密码
-    const isValid = await bcrypt.compare(
-      password,
-      await bcrypt.hash(APP_PASSWORD, 10),
-    );
+    const isValid = password === APP_PASSWORD;
 
     if (!isValid) {
       return NextResponse.json({ error: "密码错误" }, { status: 401 });

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dropit - 主页</title>
+    <title>Dropit - Main</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -43,16 +43,9 @@
         <div class="flex items-center space-x-2">
           <button
             id="langToggle"
-            class="text-gray-400 hover:text-white transition-colors relative group"
-            title="切换语言"
+            class="text-gray-400 hover:text-white transition-colors"
           >
-            <span class="text-sm font-medium" id="langText">中</span>
-            <span
-              class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-              id="langTooltip"
-            >
-              Switch to English
-            </span>
+            <span class="text-sm font-medium" id="langText">EN</span>
           </button>
           <button class="text-gray-400 hover:text-white transition-colors">
             <i class="fas fa-cog"></i>
@@ -80,7 +73,7 @@
                 >
                   <i class="fas fa-font text-blue-400 text-xs"></i>
                 </div>
-                <span class="text-sm text-gray-400">文本内容</span>
+                <span class="text-sm text-gray-400">Text Content</span>
               </div>
               <button
                 class="text-gray-500 hover:text-white transition-colors copy-btn"
@@ -89,7 +82,7 @@
               </button>
             </div>
             <p class="text-white text-sm leading-relaxed">
-              你好，这是另一条文本消息
+              Hello, this is another text message
             </p>
           </div>
 
@@ -177,7 +170,7 @@
                 >
                   <i class="fas fa-font text-blue-400 text-xs"></i>
                 </div>
-                <span class="text-sm text-gray-400">文本内容</span>
+                <span class="text-sm text-gray-400">Text Content</span>
               </div>
               <button
                 class="text-gray-500 hover:text-white transition-colors copy-btn"
@@ -186,7 +179,7 @@
               </button>
             </div>
             <p class="text-white text-sm leading-relaxed">
-              你好，这是一条文本消息
+              Hello, this is a text message
             </p>
           </div>
 
@@ -240,7 +233,7 @@
                   <span
                     class="text-white text-sm font-medium"
                     id="uploadFileName"
-                    >正在上传...</span
+                    >Uploading...</span
                   >
                   <span class="text-xs text-gray-400" id="uploadPercent"
                     >0%</span
@@ -263,7 +256,7 @@
           <div class="bg-dark-bg rounded-2xl border border-dark-border p-4">
             <div class="mb-4">
               <textarea
-                placeholder="输入文本或粘贴图片... 按 Cmd+Enter 发送"
+                placeholder="Input text or paste images here... Press Cmd+Enter to send"
                 class="w-full bg-transparent text-white placeholder-gray-500 resize-none focus:outline-none text-sm"
                 rows="3"
                 id="messageInput"
@@ -276,14 +269,14 @@
                 id="uploadBtn"
               >
                 <i class="fas fa-plus"></i>
-                <span class="text-sm font-medium">上传</span>
+                <span class="text-sm font-medium">Upload</span>
               </button>
 
               <button
                 class="bg-accent-blue hover:bg-indigo-600 text-white px-4 py-2 rounded-xl transition-colors flex items-center space-x-2"
                 onclick="sendMessage()"
               >
-                <span class="text-sm font-medium">发送</span>
+                <span class="text-sm font-medium">Send</span>
                 <i class="fas fa-paper-plane text-sm transform -rotate-45"></i>
               </button>
             </div>
@@ -513,7 +506,7 @@
                             <div class="w-6 h-6 bg-blue-600/20 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-font text-blue-400 text-xs"></i>
                             </div>
-                            <span class="text-sm text-gray-400">文本内容</span>
+                            <span class="text-sm text-gray-400">Text Content</span>
                         </div>
                         <button class="text-gray-500 hover:text-white transition-colors copy-btn">
                             <i class="far fa-copy text-sm"></i>
@@ -567,7 +560,7 @@
       });
 
       // 语言切换功能
-      let currentLang = "zh"; // 默认中文
+      let currentLang = "en"; // 默认英文
 
       const translations = {
         zh: {
@@ -601,16 +594,13 @@
       function updateLanguage(lang) {
         const t = translations[lang];
 
-        // 更新语言按钮文字和提示
+        // 更新语言按钮文字
         const langText = document.getElementById("langText");
-        const langTooltip = document.getElementById("langTooltip");
 
         if (lang === "zh") {
           langText.textContent = "中";
-          langTooltip.textContent = "Switch to English";
         } else {
           langText.textContent = "EN";
-          langTooltip.textContent = "切换到中文";
         }
 
         // 更新界面文本
@@ -630,6 +620,11 @@
           }
         });
       }
+
+      // Initialize with English language on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateLanguage("en");
+      });
     </script>
   </body>
 </html>

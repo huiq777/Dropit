@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dropit - 原型展示</title>
+    <title>Dropit - Prototype Demo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -33,16 +33,9 @@
       <!-- 语言切换按钮 -->
       <button
         id="langToggle1"
-        class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors relative group z-10"
-        title="切换语言"
+        class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
       >
-        <span class="text-sm font-medium" id="langText1">中</span>
-        <span
-          class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-          id="langTooltip1"
-        >
-          Switch to English
-        </span>
+        <span class="text-sm font-medium" id="langText1">EN</span>
       </button>
 
       <div class="w-full max-w-sm">
@@ -56,7 +49,7 @@
             ></i>
           </div>
           <h1 class="text-2xl font-semibold text-white mb-2">Dropit</h1>
-          <p class="text-gray-400 text-sm">原型展示系统</p>
+          <p class="text-gray-400 text-sm">Prototype Demo System</p>
         </div>
 
         <!-- 登录表单 -->
@@ -67,7 +60,7 @@
                 type="password"
                 id="password"
                 class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue transition-colors"
-                placeholder="输入密码查看原型..."
+                placeholder="Enter password to view prototypes..."
               />
             </div>
 
@@ -75,12 +68,12 @@
               type="submit"
               class="w-full bg-accent-blue hover:bg-indigo-600 text-white font-medium py-3 px-4 rounded-xl transition-colors"
             >
-              进入展示
+              Enter Demo
             </button>
           </form>
 
           <div class="mt-4 text-center">
-            <p class="text-xs text-gray-500">输入任意密码即可查看</p>
+            <p class="text-xs text-gray-500">Enter any password to view</p>
           </div>
         </div>
       </div>
@@ -100,21 +93,14 @@
               class="fas fa-paper-plane text-white text-sm transform -rotate-45"
             ></i>
           </div>
-          <h1 class="text-lg font-semibold text-white">Dropit 原型</h1>
+          <h1 class="text-lg font-semibold text-white">Dropit Prototype</h1>
         </div>
         <div class="flex items-center space-x-2">
           <button
             id="langToggle2"
-            class="text-gray-400 hover:text-white transition-colors relative group"
-            title="切换语言"
+            class="text-gray-400 hover:text-white transition-colors"
           >
-            <span class="text-sm font-medium" id="langText2">中</span>
-            <span
-              class="absolute -top-8 right-0 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-              id="langTooltip2"
-            >
-              Switch to English
-            </span>
+            <span class="text-sm font-medium" id="langText2">EN</span>
           </button>
           <button
             id="back-to-auth"
@@ -140,8 +126,10 @@
                 <i class="fas fa-sign-in-alt text-white"></i>
               </div>
               <div class="flex-1">
-                <h3 class="font-medium text-white">登录页面</h3>
-                <p class="text-sm text-gray-400">用户身份验证界面</p>
+                <h3 class="font-medium text-white">Login Page</h3>
+                <p class="text-sm text-gray-400">
+                  User authentication interface
+                </p>
               </div>
               <i class="fas fa-chevron-right text-gray-500"></i>
             </div>
@@ -159,8 +147,8 @@
                 <i class="fas fa-th-large text-white"></i>
               </div>
               <div class="flex-1">
-                <h3 class="font-medium text-white">原型总览</h3>
-                <p class="text-sm text-gray-400">查看所有页面预览</p>
+                <h3 class="font-medium text-white">Prototype Overview</h3>
+                <p class="text-sm text-gray-400">View all page previews</p>
               </div>
               <i class="fas fa-chevron-right text-gray-500"></i>
             </div>
@@ -178,8 +166,10 @@
                 <i class="fas fa-comments text-white"></i>
               </div>
               <div class="flex-1">
-                <h3 class="font-medium text-white">聊天界面</h3>
-                <p class="text-sm text-gray-400">一体化文本和文件分享</p>
+                <h3 class="font-medium text-white">Chat Interface</h3>
+                <p class="text-sm text-gray-400">
+                  Integrated text and file sharing
+                </p>
               </div>
               <i class="fas fa-chevron-right text-gray-500"></i>
             </div>
@@ -190,19 +180,19 @@
         <div
           class="mt-8 bg-dark-surface rounded-xl p-4 border border-dark-border"
         >
-          <h3 class="font-medium text-white mb-3">设计特点</h3>
+          <h3 class="font-medium text-white mb-3">Design Features</h3>
           <div class="space-y-2 text-sm text-gray-400">
             <div class="flex items-center space-x-2">
               <i class="fas fa-mobile-alt text-accent-blue"></i>
-              <span>移动端优先设计</span>
+              <span>Mobile-first design</span>
             </div>
             <div class="flex items-center space-x-2">
               <i class="fas fa-palette text-accent-blue"></i>
-              <span>深色主题界面</span>
+              <span>Dark theme interface</span>
             </div>
             <div class="flex items-center space-x-2">
               <i class="fas fa-comments text-accent-blue"></i>
-              <span>聊天式交互体验</span>
+              <span>Chat-like interaction experience</span>
             </div>
           </div>
         </div>
@@ -319,22 +309,16 @@
       function updateLanguage(lang) {
         const t = translations[lang];
 
-        // 更新两个语言按钮文字和提示
+        // 更新两个语言按钮文字
         const langText1 = document.getElementById("langText1");
-        const langTooltip1 = document.getElementById("langTooltip1");
         const langText2 = document.getElementById("langText2");
-        const langTooltip2 = document.getElementById("langTooltip2");
 
         if (lang === "zh") {
           langText1.textContent = "中";
-          langTooltip1.textContent = "Switch to English";
           langText2.textContent = "中";
-          langTooltip2.textContent = "Switch to English";
         } else {
           langText1.textContent = "EN";
-          langTooltip1.textContent = "切换到中文";
           langText2.textContent = "EN";
-          langTooltip2.textContent = "切换到中文";
         }
 
         // 更新auth-section
@@ -378,6 +362,11 @@
           featureSpans[2].textContent = t.features.chat;
         }
       }
+
+      // Initialize with English language on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateLanguage("en");
+      });
     </script>
   </body>
 </html>
