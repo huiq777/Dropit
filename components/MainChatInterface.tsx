@@ -5,9 +5,10 @@ import { ChatMessage } from "./ChatMessage";
 import { ChatInput } from "./ChatInput";
 import { UploadProgress } from "./UploadProgress";
 import { LanguageToggle } from "./LanguageToggle";
+import { FileManager } from "./FileManager";
 import { useI18n } from "@/lib/i18n";
 import useSWR from "swr";
-import { ArrowBigDownDash, Send, Trash2 } from "lucide-react";
+import { ArrowBigDownDash, Send, Trash2, Upload, FolderOpen } from "lucide-react";
 
 interface Message {
   id: string;
@@ -46,6 +47,7 @@ export function MainChatInterface() {
     progress: 0,
     isUploading: false,
   });
+  const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
   const chatAreaRef = useRef<HTMLDivElement>(null);
 
   // Fetch messages with SWR (polling every 3 seconds)
@@ -123,21 +125,11 @@ export function MainChatInterface() {
         const formData = new FormData();
         formData.append("file", file);
 
-        // Simulate upload progress
-        const progressInterval = setInterval(() => {
-          setUploadState((prev) => ({
-            ...prev,
-            progress: Math.min(prev.progress + Math.random() * 15, 90),
-          }));
-        }, 100);
-
         const response = await fetch("/api/upload", {
           method: "POST",
           credentials: "include",
           body: formData,
         });
-
-        clearInterval(progressInterval);
 
         if (response.ok) {
           const result = await response.json();
@@ -163,9 +155,100 @@ export function MainChatInterface() {
           progress: 0,
           isUploading: false,
         });
+        throw error; // Re-throw for FilePreview component to handle
       }
     },
     [addMessage],
+  );
+
+  // Handle multiple file uploads
+  const handleMultipleFileUpload = useCallback(
+    async (files: File[]) => {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        setUploadState({
+          fileName: file.name,
+          progress: 0,
+          isUploading: true,
+        });
+
+        try {
+          await handleFileUpload(file);
+        } catch (error) {
+          console.error(`Failed to upload ${file.name}:`, error);
+          // Continue with next file even if one fails
+        }
+      }
+    },
+    [handleFileUpload],
+  );
+
+  // Enhanced file upload with real progress tracking
+  const handleFileUploadWithProgress = useCallback(
+    (file: File): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        
+        const xhr = new XMLHttpRequest();
+        
+        // Track upload progress
+        xhr.upload.addEventListener('progress', (event) => {
+          if (event.lengthComputable) {
+            const percentComplete = (event.loaded / event.total) * 100;
+            setUploadState(prev => ({
+              ...prev,
+              progress: Math.round(percentComplete)
+            }));
+          }
+        });
+        
+        xhr.addEventListener('load', async () => {
+          if (xhr.status === 200) {
+            try {
+              const result = JSON.parse(xhr.responseText);
+              setUploadState(prev => ({ ...prev, progress: 100 }));
+              
+              // Add file message
+              await addMessage(result.data.filename, "file", result.data);
+              
+              setTimeout(() => {
+                setUploadState({
+                  fileName: "",
+                  progress: 0,
+                  isUploading: false,
+                });
+              }, 1000);
+              
+              resolve();
+            } catch (error) {
+              reject(new Error('Failed to parse response'));
+            }
+          } else {
+            reject(new Error(`Upload failed with status: ${xhr.status}`));
+          }
+        });
+        
+        xhr.addEventListener('error', () => {
+          reject(new Error('Upload failed due to network error'));
+        });
+        
+        xhr.addEventListener('abort', () => {
+          reject(new Error('Upload was aborted'));
+        });
+        
+        setUploadState({
+          fileName: file.name,
+          progress: 0,
+          isUploading: true,
+        });
+        
+        xhr.open('POST', '/api/upload');
+        xhr.setRequestHeader('credentials', 'include');
+        xhr.send(formData);
+      });
+    },
+    [addMessage]
   );
 
   const clearMessages = useCallback(async () => {
@@ -246,82 +329,97 @@ export function MainChatInterface() {
   }
 
   return (
-    <div className="h-screen bg-[#1a1a1a] text-white flex flex-col max-w-sm mx-auto">
+    <div className="h-screen bg-[#1a1a1a] text-white flex flex-col w-full">
       {/* Header */}
-      <div className="bg-[#2d2d2d] border-b border-[#404040] p-4 flex items-center justify-between sticky top-0 z-10 flex-shrink-0">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-[#6366f1] rounded-lg flex items-center justify-center">
-            <ArrowBigDownDash className="text-white w-4 h-4" />
+      <div className="border-b border-[#404040] w-full sticky top-0 z-10 flex-shrink-0">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 py-2 md:py-3 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-6 h-6 md:w-7 md:h-7 bg-[#6366f1] rounded-lg flex items-center justify-center">
+              <ArrowBigDownDash className="text-white w-4 h-4 md:w-5 md:h-5" />
+            </div>
+            <h1 className="text-base md:text-lg font-medium text-white">
+              Dropit
+            </h1>
           </div>
-          <h1 className="text-lg font-semibold text-white">
-            {t("chat.title")}
-          </h1>
-        </div>
-        <div className="flex items-center space-x-2">
-          <LanguageToggle />
-          <button
-            onClick={clearMessages}
-            className="text-gray-400 hover:text-white transition-colors cursor-pointer"
-            title={t("chat.clearMessages")}
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
+          <div className="flex items-center space-x-1.5">
+            <LanguageToggle size="small" />
+            <button
+              onClick={() => setIsFileManagerOpen(true)}
+              className="text-gray-400 hover:text-white transition-colors cursor-pointer p-1 hover:bg-[#404040] rounded"
+              title="File Manager"
+            >
+              <FolderOpen className="w-4 h-4" />
+            </button>
+            <button
+              onClick={clearMessages}
+              className="text-gray-400 hover:text-white transition-colors cursor-pointer"
+              title={t("chat.clearMessages")}
+            >
+              <Trash2 className="w-3 h-3" />
+            </button>
+          </div>
         </div>
       </div>
 
       {/* 消息区域 - 可滚动的中间部分 */}
-      <div className="flex-1 p-4 space-y-4 overflow-y-auto" ref={chatAreaRef}>
-        {messageGroups.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-gray-500">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#6366f1]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ArrowBigDownDash className="text-[#6366f1] w-8 h-8" />
-              </div>
-              <p>{t("chat.emptyStateMessage")}</p>
-            </div>
-          </div>
-        ) : (
-          messageGroups.map((group, groupIndex) => (
-            <div key={`group-${groupIndex}`} className="message-group">
-              {/* 时间戳分隔符 */}
-              <div className="text-xs text-gray-400 text-center mb-4">
-                {formatTimestamp(group.timestamp)}
-              </div>
-              {/* 消息分组容器 */}
-              <div className="space-y-4 mb-8">
-                {group.messages.map((message) => (
-                  <ChatMessage key={message.id} message={message} />
-                ))}
+      <div className="flex-1 overflow-y-auto" ref={chatAreaRef}>
+        <div className="max-w-4xl mx-auto px-4 md:px-6 py-3 md:py-4">
+          {messageGroups.length === 0 ? (
+            <div className="flex items-center justify-center min-h-[50vh] text-gray-500">
+              <div className="text-center">
+                <div className="w-8 h-8 bg-[#6366f1]/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <ArrowBigDownDash className="text-[#6366f1] w-4 h-4" />
+                </div>
+                <p className="text-base">{t("chat.emptyStateMessage")}</p>
               </div>
             </div>
-          ))
-        )}
+          ) : (
+            <div className="space-y-4">
+              {messageGroups.map((group, groupIndex) => (
+                <div key={`group-${groupIndex}`} className="message-group">
+                  {/* 时间戳分隔符 */}
+                  <div className="text-xs text-gray-400 text-center mb-3">
+                    {formatTimestamp(group.timestamp)}
+                  </div>
+                  {/* 消息分组容器 */}
+                  <div className="space-y-2">
+                    {group.messages.map((message) => (
+                      <ChatMessage key={message.id} message={message} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* 固定底部区域 */}
       <div className="flex-shrink-0">
         {/* 上传进度显示区域 */}
         {uploadState.isUploading && (
-          <div className="px-4 pb-2">
-            <div className="bg-[#2d2d2d]/50 rounded-2xl border border-[#404040] p-3">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-[#6366f1]/20 rounded-lg flex items-center justify-center">
-                  <Upload className="text-[#6366f1] w-4 h-4" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-white text-sm font-medium truncate" title={uploadState.fileName}>
-                      {uploadState.fileName}
-                    </span>
-                    <span className="text-xs text-gray-400 ml-2">
-                      {Math.round(uploadState.progress)}%
-                    </span>
+          <div className="w-full pb-1">
+            <div className="max-w-4xl mx-auto px-4 md:px-6">
+              <div className="bg-[#2d2d2d]/50 rounded-xl border border-[#404040] p-1.5">
+                <div className="flex items-center space-x-1.5">
+                  <div className="w-4 h-4 bg-[#6366f1]/20 rounded-md flex items-center justify-center">
+                    <Upload className="text-[#6366f1] w-2 h-2" />
                   </div>
-                  <div className="w-full bg-[#404040] rounded-full h-2">
-                    <div
-                      className="bg-[#6366f1] h-2 rounded-full transition-all duration-300 ease-out"
-                      style={{ width: `${uploadState.progress}%` }}
-                    />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-white text-xs font-medium truncate" title={uploadState.fileName}>
+                        {uploadState.fileName}
+                      </span>
+                      <span className="text-xs text-gray-400 ml-1">
+                        {Math.round(uploadState.progress)}%
+                      </span>
+                    </div>
+                    <div className="w-full bg-[#404040] rounded-full h-1">
+                      <div
+                        className="bg-[#f6f6f6] h-1 rounded-full transition-all duration-300 ease-out"
+                        style={{ width: `${uploadState.progress}%` }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -330,14 +428,22 @@ export function MainChatInterface() {
         )}
 
         {/* 底部输入区域 */}
-        <div className="bg-[#2d2d2d] border-t border-[#404040] p-4">
-          <ChatInput
-            onSendMessage={handleSendMessage}
-            onFileUpload={handleFileUpload}
-          />
+      <div className="border-t border-[#404040] w-full">
+          <div className="max-w-4xl mx-auto px-4 md:px-6 py-2 md:py-3">
+            <ChatInput
+              onSendMessage={handleSendMessage}
+              onFileUpload={handleFileUploadWithProgress}
+              onMultipleFileUpload={handleMultipleFileUpload}
+            />
+          </div>
         </div>
       </div>
 
+      {/* File Manager */}
+      <FileManager 
+        isOpen={isFileManagerOpen} 
+        onClose={() => setIsFileManagerOpen(false)} 
+      />
     </div>
   );
 }

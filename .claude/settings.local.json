@@ -1,6 +1,9 @@
 {
   "permissions": {
-    "allow": ["Bash(npm run test:*)"],
+    "allow": [
+      "Bash(npm run test:*)",
+      "mcp__context7__get-library-docs"
+    ],
     "deny": [],
     "ask": []
   }

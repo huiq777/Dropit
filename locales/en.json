@@ -12,7 +12,12 @@
     "upload": "Upload",
     "send": "Send",
     "clear": "Clear",
-    "settings": "Settings"
+    "settings": "Settings",
+    "search": "Search",
+    "all": "All",
+    "delete": "Delete",
+    "download": "Download",
+    "preview": "Preview"
   },
   "auth": {
     "title": "Dropit",
@@ -46,7 +51,48 @@
     "fileTooBig": "File is too large",
     "unsupportedFileType": "Unsupported file type",
     "dragDropHint": "Drop files here to upload",
-    "pasteImageHint": "Paste image to upload"
+    "pasteImageHint": "Paste image to upload",
+    "upload": {
+      "selectFiles": "Select Files",
+      "selectMultipleFiles": "Select Multiple Files",
+      "dropFilesHere": "Drop files here",
+      "pasteToUpload": "Press Ctrl+V to paste files",
+      "pasteMacToUpload": "Press Cmd+V to paste files",
+      "supportedFormats": "Supported formats",
+      "maxFileSize": "Maximum file size",
+      "previewTitle": "File Preview",
+      "filePreview": "Preview",
+      "removeFile": "Remove file",
+      "cancelUpload": "Cancel upload",
+      "retryUpload": "Retry upload",
+      "uploadQueue": "Upload queue",
+      "filesSelected": "{{count}} files selected",
+      "filesUploaded": "{{count}} files uploaded",
+      "uploadingFile": "Uploading {{filename}}",
+      "fileUploaded": "{{filename}} uploaded successfully",
+      "fileUploadFailed": "{{filename}} upload failed",
+      "takePhoto": "Take Photo",
+      "chooseFromGallery": "Choose from Gallery",
+      "camera": "Camera",
+      "gallery": "Gallery",
+      "fileTypes": {
+        "image": "Images",
+        "document": "Documents",
+        "video": "Videos",
+        "audio": "Audio",
+        "archive": "Archives",
+        "other": "Other"
+      },
+      "errors": {
+        "fileTooLarge": "File {{filename}} exceeds size limit ({{maxSize}})",
+        "unsupportedType": "Unsupported file type: {{type}}",
+        "uploadFailed": "Upload failed, please try again",
+        "networkError": "Network error, please check connection",
+        "serverError": "Server error, please try again later",
+        "tooManyFiles": "Too many files (maximum {{max}} files)",
+        "duplicateFile": "File already exists: {{filename}}"
+      }
+    }
   },
   "prototype": {
     "title": "Dropit Prototype Overview",

@@ -1,5 +1,7 @@
 import { kv } from "@vercel/kv";
 import { put, list, del, PutBlobResult, ListBlobResult } from "@vercel/blob";
+import { writeFile, readdir, unlink, stat } from 'fs/promises';
+import { join } from 'path';
 
 // KV 存储相关
 
@@ -218,3 +220,169 @@ export function getFileIcon(mimeType: string): string {
   if (mimeType.startsWith("text/")) return "📝";
   return "📁";
 }
+
+// Local Storage Fallback for Development
+
+interface BlobLike {
+  url: string;
+  pathname: string;
+  size: number;
+  uploadedAt: Date;
+}
+
+class LocalStorage {
+  private uploadsDir = join(process.cwd(), 'public', 'uploads');
+  private baseUrl = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:3002/uploads' 
+    : '/uploads';
+
+  async put(filename: string, file: File): Promise<BlobLike> {
+    const safePath = filename.replace(/\.\./g, '').replace(/^\/+/, '');
+    const fullPath = join(this.uploadsDir, safePath);
+    
+    // Ensure directory exists
+    const dir = fullPath.substring(0, fullPath.lastIndexOf('/'));
+    await this.ensureDir(dir);
+    
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    
+    await writeFile(fullPath, buffer);
+    
+    const stats = await stat(fullPath);
+    const url = `${this.baseUrl}/${safePath}`;
+    
+    return {
+      url,
+      pathname: safePath,
+      size: stats.size,
+      uploadedAt: stats.mtime
+    };
+  }
+
+  async list(options: { prefix?: string; limit?: number } = {}): Promise<{ blobs: BlobLike[] }> {
+    try {
+      await this.ensureDir(this.uploadsDir);
+      const blobs: BlobLike[] = [];
+      
+      // Use a recursive function to handle directory traversal manually
+      const processDirectory = async (currentDir: string, baseDir: string) => {
+        const entries = await readdir(currentDir, { withFileTypes: true });
+        
+        for (const entry of entries) {
+          const fullPath = join(currentDir, entry.name);
+          
+          if (entry.isDirectory()) {
+            // Recursively process subdirectories
+            await processDirectory(fullPath, baseDir);
+          } else if (entry.isFile()) {
+            // Create relative path from base directory
+            const relativePath = fullPath
+              .replace(baseDir, '')
+              .replace(/\\/g, '/')
+              .replace(/^\//, '');
+            
+            if (options.prefix && !relativePath.startsWith(options.prefix)) {
+              continue;
+            }
+            
+            const stats = await stat(fullPath);
+            const url = `${this.baseUrl}/${relativePath}`;
+            
+            blobs.push({
+              url,
+              pathname: relativePath,
+              size: stats.size,
+              uploadedAt: stats.mtime
+            });
+          }
+        }
+      };
+      
+      await processDirectory(this.uploadsDir, this.uploadsDir);
+      
+      // Sort by upload date (newest first)
+      blobs.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime());
+      
+      if (options.limit) {
+        return { blobs: blobs.slice(0, options.limit) };
+      }
+      
+      return { blobs };
+    } catch (error) {
+      console.error('Error listing local files:', error);
+      return { blobs: [] };
+    }
+  }
+
+  async del(url: string): Promise<void> {
+    const pathname = url.replace(this.baseUrl + '/', '');
+    const fullPath = join(this.uploadsDir, pathname);
+    
+    try {
+      await unlink(fullPath);
+    } catch (error) {
+      console.error('Error deleting local file:', error);
+      throw new Error('Failed to delete file');
+    }
+  }
+
+  private async ensureDir(dir: string): Promise<void> {
+    try {
+      await stat(dir);
+    } catch {
+      const { mkdir } = await import('fs/promises');
+      await mkdir(dir, { recursive: true });
+    }
+  }
+}
+
+// Enhanced storage adapter with fallback
+export const storageAdapter = {
+  async put(filename: string, file: File, options: { access: string }): Promise<BlobLike> {
+    if (process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL_BLOB_READ_WRITE_TOKEN) {
+      try {
+        return await put(filename, file as any, options);
+      } catch (error) {
+        console.warn('Vercel Blob upload failed, falling back to local storage:', error);
+        const localStorage = new LocalStorage();
+        return await localStorage.put(filename, file);
+      }
+    } else {
+      console.log('Using local storage for development');
+      const localStorage = new LocalStorage();
+      return await localStorage.put(filename, file);
+    }
+  },
+
+  async list(options: { prefix?: string; limit?: number } = {}): Promise<{ blobs: BlobLike[] }> {
+    if (process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL_BLOB_READ_WRITE_TOKEN) {
+      try {
+        return await list(options);
+      } catch (error) {
+        console.warn('Vercel Blob list failed, falling back to local storage:', error);
+        const localStorage = new LocalStorage();
+        return await localStorage.list(options);
+      }
+    } else {
+      console.log('Using local storage for development');
+      const localStorage = new LocalStorage();
+      return await localStorage.list(options);
+    }
+  },
+
+  async del(url: string): Promise<void> {
+    if (process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL_BLOB_READ_WRITE_TOKEN) {
+      try {
+        await del(url);
+        return;
+      } catch (error) {
+        console.warn('Vercel Blob delete failed, falling back to local storage:', error);
+      }
+    }
+    
+    console.log('Using local storage for development');
+    const localStorage = new LocalStorage();
+    await localStorage.del(url);
+  }
+};

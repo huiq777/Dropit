@@ -29,7 +29,7 @@ export function UploadProgress({ fileName, progress }: UploadProgressProps) {
             </div>
             <div className="w-full bg-[#404040] rounded-full h-2">
               <div
-                className="bg-[#6366f1] h-2 rounded-full transition-all duration-300 ease-out"
+                className="bg-[#f6f6f6] h-2 rounded-full transition-all duration-300 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>

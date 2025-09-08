@@ -59,33 +59,34 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] text-white flex flex-col max-w-sm mx-auto">
-      {/* Status bar placeholder */}
-      <div className="h-12"></div>
+    <div className="min-h-screen bg-[#1a1a1a] text-white flex flex-col w-full">
+      <div className="max-w-lg md:max-w-xl mx-auto px-6 md:px-8 flex flex-col min-h-screen">
+        {/* Status bar placeholder */}
+        <div className="h-8 md:h-12"></div>
 
-      {/* Header */}
-      <div className="p-4 text-center">
-        <div className="w-16 h-16 bg-[#6366f1] rounded-2xl flex items-center justify-center mx-auto mb-4">
-          <ArrowBigDownDash className="text-white w-8 h-8" />
+        {/* Header */}
+        <div className="p-4 md:p-6 text-center">
+          <div className="w-16 h-16 md:w-20 md:h-20 bg-[#6366f1] rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6">
+            <ArrowBigDownDash className="text-white w-8 h-8 md:w-10 md:h-10" />
+          </div>
+          <h1 className="text-2xl md:text-3xl font-semibold text-white mb-3 md:mb-4">
+            {t("auth.title")}
+          </h1>
+          <p className="text-gray-400 text-base md:text-lg">{t("auth.subtitle")}</p>
         </div>
-        <h1 className="text-2xl font-semibold text-white mb-2">
-          {t("auth.title")}
-        </h1>
-        <p className="text-gray-400 text-sm">{t("auth.subtitle")}</p>
-      </div>
 
-      {/* Main content */}
-      <div className="flex-1 px-4">
-        {/* Login form */}
-        <div className="bg-[#2d2d2d] rounded-2xl p-6 border border-[#404040] mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-medium text-white">
+        {/* Main content */}
+        <div className="flex-1">
+          {/* Login form */}
+          <div className="bg-[#2d2d2d] rounded-2xl p-6 md:p-8 border border-[#404040] mb-6 md:mb-8">
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+            <h2 className="text-lg md:text-xl font-medium text-white">
               {t("auth.loginAccount")}
             </h2>
-            <LanguageToggle />
+            <LanguageToggle size="large" />
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
             <div>
               <input
                 {...register("password", {
@@ -94,12 +95,12 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
                 })}
                 type="password"
                 id="password"
-                className="w-full bg-[#1a1a1a] border border-[#404040] rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#6366f1] transition-colors"
+                className="w-full bg-[#1a1a1a] border border-[#404040] rounded-xl px-4 py-3 md:px-6 md:py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6366f1] transition-colors text-base md:text-lg"
                 placeholder={t("auth.passwordPlaceholder")}
                 disabled={isLoading}
               />
               {errors.password && (
-                <p className="mt-2 text-sm text-red-400">
+                <p className="mt-2 text-sm md:text-base text-red-400">
                   {errors.password.message}
                 </p>
               )}
@@ -108,16 +109,16 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#6366f1] hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-xl transition-colors flex items-center justify-center cursor-pointer disabled:cursor-not-allowed"
+              className="w-full bg-[#6366f1] hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-6 md:py-4 md:px-8 rounded-xl transition-colors flex items-center justify-center cursor-pointer disabled:cursor-not-allowed text-base md:text-lg"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin mr-2 md:mr-3" />
                   {t("auth.verifying")}
                 </>
               ) : (
                 <>
-                  <LogIn className="w-4 h-4 mr-2" />
+                  <LogIn className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
                   {t("auth.enterDropit")}
                 </>
               )}
@@ -126,19 +127,20 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
 
           {/* Error message */}
           {error && (
-            <div className="mt-3 p-3 bg-red-900/30 border border-red-800 rounded-lg">
-              <p className="text-red-400 text-sm flex items-center">
-                <AlertCircle className="w-4 h-4 mr-2" />
+            <div className="mt-3 p-3 md:p-4 bg-red-900/30 border border-red-800 rounded-lg">
+              <p className="text-red-400 text-sm md:text-base flex items-center">
+                <AlertCircle className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
                 {error}
               </p>
             </div>
           )}
+          </div>
         </div>
-      </div>
 
-      {/* Footer */}
-      <div className="p-4 text-center">
-        <p className="text-xs text-gray-500">© 2025 Dropit</p>
+        {/* Footer */}
+        <div className="p-4 md:p-6 text-center">
+          <p className="text-sm md:text-base text-gray-600">© 2025 Dropit</p>
+        </div>
       </div>
     </div>
   );

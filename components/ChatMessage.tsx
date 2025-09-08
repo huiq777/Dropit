@@ -77,7 +77,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
   if (message.type === "text") {
     return (
-      <div className="group relative bg-gradient-to-br from-[#2a2d3e] to-[#252837] rounded-2xl p-5 border border-[#3a3d4e] shadow-lg hover:shadow-xl hover:border-[#4a4d5e] transition-all duration-300 backdrop-blur-sm">
+      <div className="group relative bg-gradient-to-br from-[#2a2d3e] to-[#252837] rounded-2xl p-3 border border-[#3a3d4e] shadow-lg hover:shadow-xl hover:border-[#4a4d5e] transition-all duration-300 backdrop-blur-sm">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
@@ -87,7 +87,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
               <span className="text-sm font-medium text-blue-300">
                 {t("chat.messageTypes.text")}
               </span>
-              <div className="w-12 h-0.5 bg-gradient-to-r from-blue-400 to-transparent rounded-full mt-1"></div>
+              <div className="w-full border-t border-gray-700 mt-1"></div>
             </div>
           </div>
           <button
@@ -114,7 +114,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
   }
 
   return (
-    <div className="group relative bg-gradient-to-br from-[#2a2d3e] to-[#252837] rounded-2xl p-5 border border-[#3a3d4e] shadow-lg hover:shadow-xl hover:border-[#4a4d5e] transition-all duration-300 backdrop-blur-sm">
+    <div className="group relative bg-gradient-to-br from-[#2a2d3e] to-[#252837] rounded-2xl p-1 border border-[#3a3d4e] shadow-lg hover:shadow-xl hover:border-[#4a4d5e] transition-all duration-300 backdrop-blur-sm">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4 flex-1">
           <div

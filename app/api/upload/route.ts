@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put, list, del } from "@vercel/blob";
 import jwt from "jsonwebtoken";
+import { storageAdapter } from "@/lib/storage";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
@@ -49,6 +49,14 @@ export async function POST(request: NextRequest) {
       "image/webp",
       "text/plain",
       "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "video/mp4",
+      "video/webm",
+      "audio/mpeg",
+      "audio/wav",
+      "application/zip",
+      "application/x-rar-compressed"
     ];
 
     if (!allowedTypes.includes(file.type)) {
@@ -60,8 +68,8 @@ export async function POST(request: NextRequest) {
     const extension = file.name.split(".").pop();
     const filename = `dropit/${timestamp}.${extension}`;
 
-    // 上传到 Vercel Blob
-    const blob = await put(filename, file, {
+    // 上传文件使用适配器
+    const blob = await storageAdapter.put(filename, file, {
       access: "public",
     });
 
@@ -96,7 +104,7 @@ export async function GET(request: NextRequest) {
   try {
     verifyAuth(request);
 
-    const { blobs } = await list({
+    const { blobs } = await storageAdapter.list({
       prefix: "dropit/",
       limit: 50,
     });
@@ -106,7 +114,21 @@ export async function GET(request: NextRequest) {
       pathname: blob.pathname,
       size: blob.size,
       uploadedAt: blob.uploadedAt,
+      type: blob.pathname ? getFileTypeFromPath(blob.pathname) : 'application/octet-stream',
+      filename: blob.pathname ? blob.pathname.split('/').pop() || 'unknown' : 'unknown'
     }));
+
+    function getFileTypeFromPath(pathname: string): string {
+      const ext = pathname.split('.').pop()?.toLowerCase() || '';
+      const typeMap: { [key: string]: string } = {
+        'jpg': 'image/jpeg', 'jpeg': 'image/jpeg', 'png': 'image/png', 'gif': 'image/gif', 'webp': 'image/webp',
+        'pdf': 'application/pdf', 'txt': 'text/plain', 'doc': 'application/msword',
+        'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'mp4': 'video/mp4', 'webm': 'video/webm', 'mp3': 'audio/mpeg', 'wav': 'audio/wav',
+        'zip': 'application/zip', 'rar': 'application/x-rar-compressed'
+      };
+      return typeMap[ext] || 'application/octet-stream';
+    }
 
     return NextResponse.json({
       success: true,
@@ -139,7 +161,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "缺少文件 URL" }, { status: 400 });
     }
 
-    await del(url);
+    await storageAdapter.del(url);
 
     return NextResponse.json({
       success: true,

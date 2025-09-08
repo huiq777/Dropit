@@ -7,7 +7,17 @@ const APP_PASSWORD = process.env.APP_PASSWORD || "default-password";
 
 export async function POST(request: NextRequest) {
   try {
-    const { password } = await request.json();
+    const contentType = request.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      return NextResponse.json({ error: "Invalid content type" }, { status: 400 });
+    }
+    
+    const body = await request.text();
+    if (!body.trim()) {
+      return NextResponse.json({ error: "Empty request body" }, { status: 400 });
+    }
+    
+    const { password } = JSON.parse(body);
 
     if (!password) {
       return NextResponse.json({ error: "密码不能为空" }, { status: 400 });
