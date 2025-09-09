@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { Type, Check, Copy, Image, FileText, File, Download } from "lucide-react";
+import { Type, Check, Copy, Image, FileText, File, Download, AlertCircle } from "lucide-react";
 
 interface Message {
   id: string;
@@ -24,19 +24,62 @@ interface ChatMessageProps {
 export function ChatMessage({ message }: ChatMessageProps) {
   const { t } = useI18n();
   const [copySuccess, setCopySuccess] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+  const [downloadStatus, setDownloadStatus] = useState<"idle" | "downloading" | "success" | "error">("idle");
 
   const handleCopy = async () => {
     try {
-      const textToCopy =
-        message.type === "file"
-          ? message.fileData?.url || message.content
-          : message.content;
+      setCopyError(false);
+      let textToCopy: string;
+      
+      if (message.type === "file") {
+        // For file messages, copy the file URL for easy access
+        textToCopy = message.fileData?.url || message.content;
+      } else {
+        // For text messages, copy the content
+        textToCopy = message.content;
+      }
 
       await navigator.clipboard.writeText(textToCopy);
       setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 1000);
+      setTimeout(() => setCopySuccess(false), 2000); // Extended feedback time
     } catch (err) {
       console.error("Failed to copy:", err);
+      // Show error feedback to user
+      setCopyError(true);
+      setTimeout(() => setCopyError(false), 3000);
+    }
+  };
+
+  const handleDownload = async () => {
+    if (!message.fileData?.url) return;
+    
+    try {
+      setDownloadStatus("downloading");
+      
+      // Create a temporary anchor element to trigger download
+      const link = document.createElement('a');
+      link.href = message.fileData.url;
+      link.download = message.fileData.filename || 'download';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      setDownloadStatus("success");
+      setTimeout(() => setDownloadStatus("idle"), 2000);
+    } catch (err) {
+      console.error("Download failed:", err);
+      setDownloadStatus("error");
+      setTimeout(() => setDownloadStatus("idle"), 3000);
+      
+      // Fallback: open in new tab if download fails
+      try {
+        window.open(message.fileData.url, '_blank', 'noopener,noreferrer');
+      } catch (fallbackErr) {
+        console.error("Fallback also failed:", fallbackErr);
+      }
     }
   };
 
@@ -95,11 +138,16 @@ export function ChatMessage({ message }: ChatMessageProps) {
             className={`opacity-0 group-hover:opacity-100 p-2 rounded-xl transition-all duration-200 cursor-pointer ${
               copySuccess 
                 ? "text-green-400 bg-green-400/10" 
+                : copyError
+                ? "text-red-400 bg-red-400/10"
                 : "text-gray-400 hover:text-white hover:bg-white/5"
             }`}
+            title={copySuccess ? "Copied!" : copyError ? "Copy failed" : "Copy text"}
           >
             {copySuccess ? (
               <Check className="w-4 h-4" />
+            ) : copyError ? (
+              <AlertCircle className="w-4 h-4" />
             ) : (
               <Copy className="w-4 h-4" />
             )}
@@ -152,24 +200,53 @@ export function ChatMessage({ message }: ChatMessageProps) {
             className={`opacity-0 group-hover:opacity-100 p-2 rounded-xl transition-all duration-200 cursor-pointer ${
               copySuccess 
                 ? "text-green-400 bg-green-400/10" 
+                : copyError
+                ? "text-red-400 bg-red-400/10"
                 : "text-gray-400 hover:text-white hover:bg-white/5"
             }`}
+            title={copySuccess ? "Copied!" : copyError ? "Copy failed" : "Copy text"}
           >
             {copySuccess ? (
               <Check className="w-4 h-4" />
+            ) : copyError ? (
+              <AlertCircle className="w-4 h-4" />
             ) : (
               <Copy className="w-4 h-4" />
             )}
           </button>
           {message.fileData?.url && (
-            <a
-              href={message.fileData.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="opacity-0 group-hover:opacity-100 p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200 cursor-pointer"
+            <button
+              onClick={handleDownload}
+              className={`opacity-0 group-hover:opacity-100 p-2 rounded-xl transition-all duration-200 cursor-pointer ${
+                downloadStatus === "success"
+                  ? "text-green-400 bg-green-400/10"
+                  : downloadStatus === "error"
+                  ? "text-red-400 bg-red-400/10"
+                  : downloadStatus === "downloading"
+                  ? "text-blue-400 bg-blue-400/10"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
+              }`}
+              title={
+                downloadStatus === "success"
+                  ? "Downloaded!"
+                  : downloadStatus === "error"
+                  ? "Download failed"
+                  : downloadStatus === "downloading"
+                  ? "Downloading..."
+                  : "Download file"
+              }
+              disabled={downloadStatus === "downloading"}
             >
-              <Download className="w-4 h-4" />
-            </a>
+              {downloadStatus === "success" ? (
+                <Check className="w-4 h-4" />
+              ) : downloadStatus === "error" ? (
+                <AlertCircle className="w-4 h-4" />
+              ) : (
+                <Download className={`w-4 h-4 ${
+                  downloadStatus === "downloading" ? "animate-pulse" : ""
+                }`} />
+              )}
+            </button>
           )}
         </div>
       </div>

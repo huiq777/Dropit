@@ -1,0 +1,89 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8] [cursor=pointer]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - img [ref=e17]
+        - heading "Dropit" [level=1] [ref=e19]
+      - generic [ref=e20]:
+        - button "EN" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22] [cursor=pointer]: EN
+        - button "File Manager" [ref=e23] [cursor=pointer]:
+          - img [ref=e24] [cursor=pointer]
+        - button "Clear messages" [ref=e26] [cursor=pointer]:
+          - img [ref=e27] [cursor=pointer]
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: 09/08/2025, 03:52:25 PM
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - generic [ref=e37]:
+              - generic [ref=e38]:
+                - img [ref=e40]
+                - generic [ref=e43]: Text Content
+              - button "Copy text" [ref=e45] [cursor=pointer]:
+                - img [ref=e46] [cursor=pointer]
+            - paragraph [ref=e49]: This is a test message for copy functionality
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]:
+                - img [ref=e54]
+                - generic [ref=e57]: Text Content
+              - button "Copy text" [ref=e59] [cursor=pointer]:
+                - img [ref=e60] [cursor=pointer]
+            - paragraph [ref=e63]: Test message for visual feedback
+      - generic [ref=e64]:
+        - generic [ref=e65]: 09/08/2025, 03:54:43 PM
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - img [ref=e71]
+                - generic [ref=e74]: Text Content
+              - button "Copy text" [ref=e76] [cursor=pointer]:
+                - img [ref=e77] [cursor=pointer]
+            - paragraph [ref=e80]: This is a test message for copy functionality
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - generic [ref=e83]:
+                - img [ref=e85]
+                - generic [ref=e88]: Text Content
+              - button "Copy text" [ref=e90] [cursor=pointer]:
+                - img [ref=e91] [cursor=pointer]
+            - paragraph [ref=e94]: Test message for visual feedback
+      - generic [ref=e95]:
+        - generic [ref=e96]: 09/08/2025, 03:57:45 PM
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - img [ref=e102]
+                - generic [ref=e105]: Text Content
+              - button "Copy text" [active] [ref=e107] [cursor=pointer]:
+                - img [ref=e108] [cursor=pointer]
+            - paragraph [ref=e111]: "Test message for copy functionality - timestamp: 1757361465565"
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - generic [ref=e114]:
+                - img [ref=e116]
+                - generic [ref=e119]: Text Content
+              - button "Copy text" [ref=e121] [cursor=pointer]:
+                - img [ref=e122] [cursor=pointer]
+            - paragraph [ref=e125]: Test message for visual feedback
+    - generic [ref=e130]:
+      - textbox "Input text content, press Cmd+Enter to send" [ref=e132]
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - button "Upload" [ref=e135] [cursor=pointer]:
+            - img [ref=e136] [cursor=pointer]
+            - generic [ref=e138] [cursor=pointer]: Upload
+          - generic [ref=e140]: Press Cmd+V to paste files
+        - button "Drop" [disabled] [ref=e141]:
+          - generic [ref=e142]: Drop
+          - img [ref=e143]
+```
