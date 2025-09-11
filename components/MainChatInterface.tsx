@@ -5,10 +5,9 @@ import { ChatMessage } from "./ChatMessage";
 import { ChatInput } from "./ChatInput";
 import { UploadProgress } from "./UploadProgress";
 import { LanguageToggle } from "./LanguageToggle";
-import { FileManager } from "./FileManager";
 import { useI18n } from "@/lib/i18n";
 import useSWR from "swr";
-import { ArrowBigDownDash, Send, Trash2, Upload, FolderOpen } from "lucide-react";
+import { ArrowBigDownDash, Send, Trash2, Upload } from "lucide-react";
 
 interface Message {
   id: string;
@@ -47,7 +46,6 @@ export function MainChatInterface() {
     progress: 0,
     isUploading: false,
   });
-  const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
   const chatAreaRef = useRef<HTMLDivElement>(null);
 
   // Fetch messages with SWR (polling every 3 seconds)
@@ -344,13 +342,6 @@ export function MainChatInterface() {
           <div className="flex items-center space-x-1.5">
             <LanguageToggle size="small" />
             <button
-              onClick={() => setIsFileManagerOpen(true)}
-              className="text-gray-400 hover:text-white transition-colors cursor-pointer p-1 hover:bg-[#404040] rounded"
-              title="File Manager"
-            >
-              <FolderOpen className="w-4 h-4" />
-            </button>
-            <button
               onClick={clearMessages}
               className="text-gray-400 hover:text-white transition-colors cursor-pointer"
               title={t("chat.clearMessages")}
@@ -439,11 +430,6 @@ export function MainChatInterface() {
         </div>
       </div>
 
-      {/* File Manager */}
-      <FileManager 
-        isOpen={isFileManagerOpen} 
-        onClose={() => setIsFileManagerOpen(false)} 
-      />
     </div>
   );
 }

@@ -120,42 +120,40 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
   if (message.type === "text") {
     return (
-      <div className="group relative bg-gradient-to-br from-[#2a2d3e] to-[#252837] rounded-2xl p-3 border border-[#3a3d4e] shadow-lg hover:shadow-xl hover:border-[#4a4d5e] transition-all duration-300 backdrop-blur-sm">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
-              <Type className="text-white w-4 h-4" />
+      <div className="group relative bg-gradient-to-br from-[#2a2d3e] to-[#252837] rounded-2xl p-1 border border-[#3a3d4e] shadow-lg hover:shadow-xl hover:border-[#4a4d5e] transition-all duration-300 backdrop-blur-sm">
+        <div className="flex items-start justify-between">
+          <div className="flex items-start space-x-4 flex-1 min-w-0">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg border border-white/10 flex-shrink-0">
+              <Type className="text-white w-6 h-6" />
             </div>
-            <div>
-              <span className="text-sm font-medium text-blue-300">
-                {t("chat.messageTypes.text")}
-              </span>
-              <div className="w-full border-t border-gray-700 mt-1"></div>
+            <div className="flex-1 min-w-0 overflow-hidden">
+              <div className="text-white font-medium text-sm break-all whitespace-pre-wrap leading-relaxed">
+                {message.content}
+              </div>
             </div>
           </div>
-          <button
-            onClick={handleCopy}
-            className={`opacity-0 group-hover:opacity-100 p-2 rounded-xl transition-all duration-200 cursor-pointer ${
-              copySuccess 
-                ? "text-green-400 bg-green-400/10" 
-                : copyError
-                ? "text-red-400 bg-red-400/10"
-                : "text-gray-400 hover:text-white hover:bg-white/5"
-            }`}
-            title={copySuccess ? "Copied!" : copyError ? "Copy failed" : "Copy text"}
-          >
-            {copySuccess ? (
-              <Check className="w-4 h-4" />
-            ) : copyError ? (
-              <AlertCircle className="w-4 h-4" />
-            ) : (
-              <Copy className="w-4 h-4" />
-            )}
-          </button>
+          <div className="flex items-center space-x-1 ml-4">
+            <button
+              onClick={handleCopy}
+              className={`opacity-0 group-hover:opacity-100 p-2 rounded-xl transition-all duration-200 cursor-pointer ${
+                copySuccess 
+                  ? "text-green-400 bg-green-400/10" 
+                  : copyError
+                  ? "text-red-400 bg-red-400/10"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
+              }`}
+              title={copySuccess ? "Copied!" : copyError ? "Copy failed" : "Copy text"}
+            >
+              {copySuccess ? (
+                <Check className="w-4 h-4" />
+              ) : copyError ? (
+                <AlertCircle className="w-4 h-4" />
+              ) : (
+                <Copy className="w-4 h-4" />
+              )}
+            </button>
+          </div>
         </div>
-        <p className="text-gray-100 text-sm leading-relaxed whitespace-pre-wrap font-light">
-          {message.content}
-        </p>
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent rounded-2xl pointer-events-none"></div>
       </div>
     );
@@ -164,9 +162,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
   return (
     <div className="group relative bg-gradient-to-br from-[#2a2d3e] to-[#252837] rounded-2xl p-1 border border-[#3a3d4e] shadow-lg hover:shadow-xl hover:border-[#4a4d5e] transition-all duration-300 backdrop-blur-sm">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4 flex-1">
+        <div className="flex items-center space-x-4 flex-1 min-w-0">
           <div
-            className={`w-12 h-12 ${iconStyle.bg} rounded-2xl flex items-center justify-center shadow-lg border border-white/10`}
+            className={`w-12 h-12 ${iconStyle.bg} rounded-2xl flex items-center justify-center shadow-lg border border-white/10 flex-shrink-0`}
           >
             {message.fileData?.type?.startsWith("image/") ? (
               <Image className={`w-6 h-6 ${iconStyle.icon}`} />
@@ -178,8 +176,8 @@ export function ChatMessage({ message }: ChatMessageProps) {
               <File className={`w-6 h-6 ${iconStyle.icon}`} />
             )}
           </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="text-white font-medium text-sm truncate mb-1">
+          <div className="flex-1 min-w-0 overflow-hidden">
+            <h3 className="text-white font-medium text-sm break-all mb-1">
               {message.fileData?.filename || message.content}
             </h3>
             <div className="flex items-center space-x-2">

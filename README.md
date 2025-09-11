@@ -17,7 +17,6 @@
 - 💬 **聊天界面** - 类似聊天应用的现代化用户界面
 - 📋 **复制功能** - 一键复制文本内容或文件链接
 - ⬇️ **直接下载** - 点击即可下载文件到本地
-- 🗂️ **文件管理** - 完整的文件管理器，支持搜索、筛选、批量操作
 - 🎨 **现代UI** - 暗色主题，流畅动画和视觉反馈
 - 📱 **响应式** - 支持桌面端和移动端
 
@@ -85,14 +84,6 @@ npm run dev
 4. **复制内容** - 悬停消息后点击复制按钮
 5. **下载文件** - 点击文件消息上的下载按钮
 
-#### 文件管理器
-
-- 点击顶部的文件夹图标打开文件管理器
-- 支持网格视图和列表视图切换
-- 可按名称、日期、大小、类型排序
-- 支持文件类型筛选（图片、文档、视频等）
-- 支持搜索和批量删除操作
-
 #### 支持的文件格式
 
 - **图片**: JPEG, PNG, GIF, WebP
@@ -141,7 +132,6 @@ dropit/
 │   ├── AuthForm.tsx      # 认证表单
 │   ├── ChatMessage.tsx   # 消息组件
 │   ├── ChatInput.tsx     # 输入组件
-│   ├── FileManager.tsx   # 文件管理器
 │   └── ...               # 其他组件
 ├── lib/                  # 工具库
 │   ├── auth.ts          # 认证工具
@@ -174,7 +164,6 @@ dropit/
 - 💬 **Chat Interface** - Modern chat-like user interface
 - 📋 **Copy Functionality** - One-click copy for text content or file URLs
 - ⬇️ **Direct Download** - Click to download files directly
-- 🗂️ **File Management** - Complete file manager with search, filtering, and bulk operations
 - 🎨 **Modern UI** - Dark theme with smooth animations and visual feedback
 - 📱 **Responsive** - Works on desktop and mobile devices
 
@@ -242,14 +231,6 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 4. **Copy Content** - Hover over messages and click copy button
 5. **Download Files** - Click download button on file messages
 
-#### File Manager
-
-- Click the folder icon in the top bar to open file manager
-- Switch between grid view and list view
-- Sort by name, date, size, or type
-- Filter by file type (images, documents, videos, etc.)
-- Search and bulk delete operations
-
 #### Supported File Formats
 
 - **Images**: JPEG, PNG, GIF, WebP
@@ -298,7 +279,6 @@ dropit/
 │   ├── AuthForm.tsx      # Authentication form
 │   ├── ChatMessage.tsx   # Message component
 │   ├── ChatInput.tsx     # Input component
-│   ├── FileManager.tsx   # File manager
 │   └── ...               # Other components
 ├── lib/                  # Utility libraries
 │   ├── auth.ts          # Authentication utilities
