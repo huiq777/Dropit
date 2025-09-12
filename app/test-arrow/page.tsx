@@ -62,7 +62,7 @@ export default function TestArrow() {
             </button>
           </div>
           <p className="text-center text-sm text-gray-400 mt-4">
-            Fixed "Drop" text with ArrowBigDownDash icon
+            Fixed &quot;Drop&quot; text with ArrowBigDownDash icon
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export default function TestArrow() {
           <li>• Brand identity updated to use arrow down symbolism</li>
           <li>• Icons properly centered in all containers</li>
           <li>• Consistent sizing across all components</li>
-          <li>• Drop button maintains "Drop" text with new icon</li>
+          <li>• Drop button maintains &quot;Drop&quot; text with new icon</li>
           <li>• Color variations working correctly</li>
           <li>• No rotation needed - icon works naturally</li>
         </ul>

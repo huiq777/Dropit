@@ -18,7 +18,18 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "browsermcp/**",
     ],
+  },
+  {
+    rules: {
+      "jsx-a11y/alt-text": [
+        "error",
+        {
+          elements: ["img", "area", "input[type=\"image\"]"],
+        },
+      ],
+    },
   },
 ];
 

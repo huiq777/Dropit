@@ -78,7 +78,7 @@ export default function TestBrand() {
             </button>
           </div>
           <p className="text-center text-sm text-gray-400 mt-4">
-            Action button with fixed "Drop" text (brand identity)
+            Action button with fixed &quot;Drop&quot; text (brand identity)
           </p>
         </div>
 

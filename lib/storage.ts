@@ -339,10 +339,16 @@ class LocalStorage {
 
 // Enhanced storage adapter with fallback
 export const storageAdapter = {
-  async put(filename: string, file: File, options: { access: string }): Promise<BlobLike> {
+  async put(filename: string, file: File, options: { access: "public" }): Promise<BlobLike> {
     if (process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL_BLOB_READ_WRITE_TOKEN) {
       try {
-        return await put(filename, file as any, options);
+        const result = await put(filename, file as any, options);
+        return {
+          url: result.url,
+          pathname: result.pathname,
+          size: file.size,
+          uploadedAt: new Date()
+        };
       } catch (error) {
         console.warn('Vercel Blob upload failed, falling back to local storage:', error);
         const localStorage = new LocalStorage();

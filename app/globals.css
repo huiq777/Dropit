@@ -111,3 +111,24 @@ body {
   background-size: 200px 100%;
   animation: shimmer 2s infinite;
 }
+
+/* Hide Next.js development indicator */
+[data-nextjs-toast],
+.__next-dev-overlay,
+[data-nextjs-dev-overlay],
+[data-turbopack-error-indicator],
+div[style*="position: fixed"][style*="bottom"][style*="left"]:has(svg),
+div[style*="position:fixed"][style*="bottom"][style*="left"]:has(svg) {
+  display: none !important;
+}
+
+/* More specific targeting for Next.js development overlays */
+body > div:not([id]):not([class]):has(svg[viewBox="0 0 394 80"]) {
+  display: none !important;
+}
+
+/* Hide Turbopack development indicators */
+[data-turbopack],
+[data-turbo] {
+  display: none !important;
+}
